@@ -62,7 +62,7 @@ export default function ContactPageClient({ dict, lang }: Props) {
   }
 
   const contactInfoItems = [
-    { icon: <LocationOnIcon />, label: dict.contact.info.address, value: dict.contact.info.addressValue, color: '#6C3CE1' },
+    { icon: <LocationOnIcon />, label: dict.contact.info.address, value: dict.contact.info.addressValue, color: '#F6BC0D' },
     { icon: <PhoneIcon />, label: dict.contact.info.phone, value: dict.contact.info.phoneValue, color: '#00D4AA' },
     { icon: <EmailIcon />, label: dict.contact.info.email, value: dict.contact.info.emailValue, color: '#FF6B35' },
     { icon: <AccessTimeIcon />, label: dict.contact.info.hours, value: dict.contact.info.hoursValue, color: '#48CAE4' },
@@ -190,11 +190,12 @@ export default function ContactPageClient({ dict, lang }: Props) {
                     endIcon={<SendIcon />}
                     sx={{
                       mt: 3, py: 1.8, fontSize: '1rem', fontWeight: 700,
-                      background: 'linear-gradient(135deg, #6C3CE1, #8B5CF6)',
+                      background: 'linear-gradient(135deg, #F6BC0D, #FDCB35)',
+                      color: '#000',
                       borderRadius: '14px',
-                      boxShadow: '0 8px 30px rgba(108,60,225,0.3)',
+                      boxShadow: '0 8px 30px rgba(246, 188, 13, 0.3)',
                       '&:hover': {
-                        background: 'linear-gradient(135deg, #5521C4, #6C3CE1)',
+                        background: 'linear-gradient(135deg, #D9A70F, #F6BC0D)',
                       },
                     }}
                   >
@@ -240,18 +241,19 @@ export default function ContactPageClient({ dict, lang }: Props) {
                 ))}
               </Box>
 
-              {/* Map Placeholder */}
               <Box sx={{
-                mt: 3, borderRadius: '16px', height: 250, overflow: 'hidden',
-                background: 'rgba(240,240,245,0.6)', border: '1px solid rgba(0,0,0,0.08)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                mt: 3, borderRadius: '16px', height: { xs: 300, md: 350 }, overflow: 'hidden',
+                border: '1px solid rgba(0,0,0,0.08)',
               }}>
-                <Box sx={{ textAlign: 'center' }}>
-                  <LocationOnIcon sx={{ fontSize: 40, color: 'rgba(108,60,225,0.4)', mb: 1 }} />
-                  <Typography sx={{ color: 'rgba(0,0,0,0.6)', fontSize: '0.85rem' }}>
-                    {lang === 'tr' ? 'Harita buraya eklenecek' : 'Map will be added here'}
-                  </Typography>
-                </Box>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.6705838212197!2d29.087695476925845!3d41.03246237134712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac856701d7865%3A0x1cff39ef5c1a6fd7!2sExen%20Residence!5e0!3m2!1str!2str!4v1775137371334!5m2!1str!2str"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </Box>
             </motion.div>
           </Grid>

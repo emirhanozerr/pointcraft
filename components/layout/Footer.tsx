@@ -1,9 +1,8 @@
 import Link from 'next/link'
 import { Box, Container, Grid, Typography, TextField, Button, IconButton, Divider } from '@mui/material'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
-import TwitterIcon from '@mui/icons-material/Twitter'
 import InstagramIcon from '@mui/icons-material/Instagram'
-import YouTubeIcon from '@mui/icons-material/YouTube'
+import FacebookIcon from '@mui/icons-material/Facebook'
 import SendIcon from '@mui/icons-material/Send'
 import type { Locale } from '@/app/[lang]/dictionaries'
 
@@ -38,7 +37,7 @@ export default function Footer({ dict, lang }: FooterProps) {
       {/* Decorative Glow */}
       <Box sx={{
         position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
-        width: 600, height: 2, background: 'linear-gradient(90deg, transparent, rgba(108,60,225,0.5), transparent)',
+        width: 600, height: 2, background: 'linear-gradient(90deg, transparent, rgba(246, 188, 13, 0.5), transparent)',
       }} />
 
       <Container maxWidth="xl">
@@ -46,16 +45,13 @@ export default function Footer({ dict, lang }: FooterProps) {
           {/* Brand Column */}
           <Grid size={{ xs: 12, md: 4 }} sx={{ textAlign: { xs: 'center', md: 'left' }, display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' } }}>
             <Link href={`/${lang}`} style={{ textDecoration: 'none' }}>
-              <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' }, alignItems: 'center', gap: 1.5, mb: 2 }}>
-                <Box sx={{
-                  width: 36, height: 36, borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #6C3CE1, #00D4AA)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1rem', fontWeight: 800, color: '#fff',
-                }}>P</Box>
-                <Typography sx={{ fontSize: '1.3rem', fontWeight: 800, fontFamily: '"Outfit"', color: '#1A1A1A' }}>
-                  Point<Box component="span" sx={{ color: '#6C3CE1' }}>craft</Box>
-                </Typography>
+              <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' }, alignItems: 'center', mb: 2 }}>
+                <Box
+                  component="img"
+                  src="/images/logo.png"
+                  alt="Pointcraft Logo"
+                  sx={{ height: 45, width: 'auto', display: 'block', objectFit: 'contain' }}
+                />
               </Box>
             </Link>
             <Typography sx={{ color: 'rgba(0,0,0,0.6)', lineHeight: 1.8, mb: 3, maxWidth: 350, mx: { xs: 'auto', md: 0 } }}>
@@ -63,16 +59,22 @@ export default function Footer({ dict, lang }: FooterProps) {
             </Typography>
             <Box sx={{ display: 'flex', gap: 1, justifyContent: { xs: 'center', md: 'flex-start' } }}>
               {[
-                { icon: <InstagramIcon />, color: '#E1306C' },
-                { icon: <LinkedInIcon />, color: '#0077B5' },
-                { icon: <TwitterIcon />, color: '#1DA1F2' },
-                { icon: <YouTubeIcon />, color: '#FF0000' },
+                { icon: <InstagramIcon />, color: '#E1306C', href: 'https://www.instagram.com/pointcrafttr/' },
+                { icon: <FacebookIcon />, color: '#1877F2', href: 'https://tr-tr.facebook.com/61578396466024/' },
+                { icon: <LinkedInIcon />, color: '#0077B5', href: 'https://www.linkedin.com/company/pointcraft' },
               ].map((social, i) => (
-                <IconButton key={i} sx={{
-                  color: 'rgba(0,0,0,0.5)', border: '1px solid rgba(0,0,0,0.1)',
-                  borderRadius: '10px', transition: 'all 0.3s',
-                  '&:hover': { color: social.color, borderColor: social.color, background: `${social.color}15` },
-                }}>
+                <IconButton
+                  key={i}
+                  component="a"
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: 'rgba(0,0,0,0.5)', border: '1px solid rgba(0,0,0,0.1)',
+                    borderRadius: '10px', transition: 'all 0.3s',
+                    '&:hover': { color: social.color, borderColor: social.color, background: `${social.color}15` },
+                  }}
+                >
                   {social.icon}
                 </IconButton>
               ))}
@@ -89,7 +91,7 @@ export default function Footer({ dict, lang }: FooterProps) {
                 <Link key={key} href={`/${lang}/hizmetler`} style={{ textDecoration: 'none' }}>
                   <Typography sx={{
                     color: 'rgba(0,0,0,0.6)', fontSize: '0.88rem',
-                    transition: 'all 0.2s', '&:hover': { color: '#6C3CE1', pl: 0.5 },
+                    transition: 'all 0.2s', '&:hover': { color: '#F6BC0D', pl: 0.5 },
                   }}>
                     {dict.services.items[key].title}
                   </Typography>
@@ -140,8 +142,8 @@ export default function Footer({ dict, lang }: FooterProps) {
                     borderRadius: '10px',
                     background: 'rgba(0,0,0,0.04)',
                     '& fieldset': { borderColor: 'rgba(0,0,0,0.1)' },
-                    '&:hover fieldset': { borderColor: 'rgba(108,60,225,0.4)' },
-                    '&.Mui-focused fieldset': { borderColor: '#6C3CE1' },
+                    '&:hover fieldset': { borderColor: 'rgba(246, 188, 13, 0.4)' },
+                    '&.Mui-focused fieldset': { borderColor: '#F6BC0D' },
                     '& input': { color: '#1A1A1A', fontSize: '0.88rem' },
                     '& input::placeholder': { color: 'rgba(0,0,0,0.4)' },
                   },
@@ -151,8 +153,9 @@ export default function Footer({ dict, lang }: FooterProps) {
                 variant="contained"
                 sx={{
                   minWidth: 48, borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #6C3CE1, #8B5CF6)',
-                  '&:hover': { background: 'linear-gradient(135deg, #5521C4, #6C3CE1)' },
+                  background: 'linear-gradient(135deg, #F6BC0D, #FDCB35)',
+                  color: '#000',
+                  '&:hover': { background: 'linear-gradient(135deg, #D9A70F, #F6BC0D)' },
                 }}
               >
                 <SendIcon sx={{ fontSize: 18 }} />
@@ -171,7 +174,7 @@ export default function Footer({ dict, lang }: FooterProps) {
             {[dict.footer.privacy, dict.footer.terms, dict.footer.cookies].map((item, i) => (
               <Typography key={i} component="a" href="#" sx={{
                 color: 'rgba(0,0,0,0.5)', fontSize: '0.82rem', textDecoration: 'none',
-                '&:hover': { color: '#6C3CE1' },
+                '&:hover': { color: '#F6BC0D' },
               }}>
                 {item}
               </Typography>

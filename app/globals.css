@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #6C3CE1;
-  --color-primary-light: #8B5CF6;
-  --color-primary-dark: #5521C4;
+  --color-primary: #F6BC0D;
+  --color-primary-light: #FDCB35;
+  --color-primary-dark: #D9A70F;
   --color-secondary: #00D4AA;
   --color-secondary-light: #34E8C4;
   --color-accent: #FF6B35;
@@ -93,14 +93,14 @@ body {
 
 /* ===== GRADIENT TEXT ===== */
 .gradient-text {
-  background: linear-gradient(135deg, #6C3CE1 0%, #00D4AA 50%, #8B5CF6 100%);
+  background: linear-gradient(135deg, #F6BC0D 0%, #00D4AA 50%, #FDCB35 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-text-accent {
-  background: linear-gradient(135deg, #FF6B35 0%, #6C3CE1 100%);
+  background: linear-gradient(135deg, #FF6B35 0%, #F6BC0D 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -108,7 +108,7 @@ body {
 
 /* ===== GRADIENT BACKGROUNDS ===== */
 .gradient-primary {
-  background: linear-gradient(135deg, #6C3CE1 0%, #8B5CF6 100%);
+  background: linear-gradient(135deg, #F6BC0D 0%, #FDCB35 100%);
 }
 
 .gradient-secondary {
@@ -130,7 +130,7 @@ body {
 
 /* ===== GLOW EFFECTS ===== */
 .glow-primary {
-  box-shadow: 0 0 30px rgba(108, 60, 225, 0.3), 0 0 60px rgba(108, 60, 225, 0.1);
+  box-shadow: 0 0 30px rgba(246, 188, 13, 0.3), 0 0 60px rgba(246, 188, 13, 0.1);
 }
 
 .glow-secondary {
@@ -142,7 +142,7 @@ body {
 }
 
 .glow-card-hover {
-  box-shadow: 0 0 40px -10px var(--glow-color, rgba(108, 60, 225, 0.2));
+  box-shadow: 0 0 40px -10px var(--glow-color, rgba(246, 188, 13, 0.2));
 }
 
 /* ===== CARD HOVER ===== */
@@ -150,10 +150,10 @@ body {
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .card-hover:hover {
-  border-color: var(--border-hover-color, rgba(108, 60, 225, 0.4));
+  border-color: var(--border-hover-color, rgba(246, 188, 13, 0.4));
   box-shadow: 
     0 40px 80px -20px rgba(0, 0, 0, 0.15),
-    0 0 40px -5px var(--glow-color, rgba(108, 60, 225, 0.2));
+    0 0 40px -5px var(--glow-color, rgba(246, 188, 13, 0.2));
 }
 
 .holographic-border {
@@ -169,7 +169,7 @@ body {
   background: linear-gradient(135deg, 
     rgba(255,255,255,0.4), 
     rgba(255,255,255,0.1), 
-    var(--glow-color, rgba(108,60,225,0.2)), 
+    var(--glow-color, rgba(246, 188, 13, 0.2)), 
     rgba(255,255,255,0.1), 
     rgba(255,255,255,0.4)
   ) border-box;
@@ -186,11 +186,11 @@ body {
 .holographic-border:hover::before {
   opacity: 1;
   background: linear-gradient(135deg, 
-    var(--glow-color, rgba(108,60,225,0.5)), 
+    var(--glow-color, rgba(246, 188, 13, 0.5)), 
     rgba(255,255,255,0.3), 
     var(--glow-color, rgba(0,212,170,0.5)), 
     rgba(255,255,255,0.3), 
-    var(--glow-color, rgba(108,60,225,0.5))
+    var(--glow-color, rgba(246, 188, 13, 0.5))
   ) border-box;
 }
 
@@ -203,7 +203,7 @@ body {
   content: '';
   position: absolute;
   inset: -2px;
-  background: conic-gradient(from 0deg, #6C3CE1, #00D4AA, #FF6B35, #6C3CE1);
+  background: conic-gradient(from 0deg, #F6BC0D, #00D4AA, #FF6B35, #F6BC0D);
   border-radius: inherit;
   z-index: -1;
   animation: spin-border 4s linear infinite;
@@ -321,6 +321,6 @@ body {
 
 /* ===== SELECTION ===== */
 ::selection {
-  background: rgba(108, 60, 225, 0.4);
-  color: #fff;
+  background: rgba(246, 188, 13, 0.4);
+  color: #000;
 }

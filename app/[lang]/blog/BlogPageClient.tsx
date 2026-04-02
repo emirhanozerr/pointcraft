@@ -35,8 +35,8 @@ export default function BlogPageClient({ dict, lang }: Props) {
         <Container maxWidth="md">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <Chip label={dict.blog.badge} sx={{
-              mb: 2, background: 'rgba(0,180,216,0.1)', color: '#48CAE4',
-              border: '1px solid rgba(0,180,216,0.25)', fontWeight: 600,
+              mb: 2, background: 'rgba(246, 188, 13, 0.1)', color: '#B88E00',
+              border: '1px solid rgba(246, 188, 13, 0.25)', fontWeight: 600,
             }} />
             <Typography variant="h1" sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 800, mb: 2, color: '#1A1A1A' }}>
               {dict.blog.title}
@@ -57,11 +57,11 @@ export default function BlogPageClient({ dict, lang }: Props) {
               onClick={() => setActiveCategory(key)}
               sx={{
                 borderRadius: '10px', px: 3, py: 1, fontSize: '0.88rem', fontWeight: 600,
-                background: activeCategory === key ? 'linear-gradient(135deg, #6C3CE1, #8B5CF6)' : 'rgba(0,0,0,0.04)',
-                color: activeCategory === key ? '#fff' : 'rgba(0,0,0,0.6)',
+                background: activeCategory === key ? 'linear-gradient(135deg, #F6BC0D, #FDCB35)' : 'rgba(0,0,0,0.04)',
+                color: activeCategory === key ? '#000' : 'rgba(0,0,0,0.6)',
                 border: `1px solid ${activeCategory === key ? 'transparent' : 'rgba(0,0,0,0.08)'}`,
                 '&:hover': {
-                  background: activeCategory === key ? 'linear-gradient(135deg, #5521C4, #6C3CE1)' : 'rgba(108,60,225,0.08)',
+                  background: activeCategory === key ? 'linear-gradient(135deg, #D9A70F, #F6BC0D)' : 'rgba(246, 188, 13, 0.08)',
                 },
               }}
             >
@@ -87,7 +87,7 @@ export default function BlogPageClient({ dict, lang }: Props) {
                   <Box sx={{
                     height: 200,
                     background: `linear-gradient(135deg, ${
-                      index % 4 === 0 ? 'rgba(108,60,225,0.25), rgba(139,92,246,0.1)' :
+                      index % 4 === 0 ? 'rgba(242,187,19,0.25), rgba(253,203,53,0.1)' :
                       index % 4 === 1 ? 'rgba(0,212,170,0.25), rgba(52,232,196,0.1)' :
                       index % 4 === 2 ? 'rgba(255,107,53,0.25), rgba(255,143,107,0.1)' :
                       'rgba(0,180,216,0.25), rgba(72,202,228,0.1)'
@@ -104,8 +104,8 @@ export default function BlogPageClient({ dict, lang }: Props) {
                       sx={{
                         position: 'absolute', top: 12, left: 12,
                         background: 'rgba(10,10,26,0.7)', backdropFilter: 'blur(10px)',
-                        color: '#8B5CF6', fontWeight: 600, fontSize: '0.72rem',
-                        border: '1px solid rgba(108,60,225,0.3)',
+                        color: '#F6BC0D', fontWeight: 600, fontSize: '0.72rem',
+                        border: '1px solid rgba(242,187,19,0.3)',
                       }}
                     />
                   </Box>
@@ -139,8 +139,8 @@ export default function BlogPageClient({ dict, lang }: Props) {
                     </Typography>
 
                     <Button endIcon={<ArrowForwardIcon sx={{ fontSize: '16px !important' }} />} sx={{
-                      alignSelf: 'flex-start', color: '#8B5CF6', fontWeight: 600, fontSize: '0.88rem', p: 0,
-                      '&:hover': { background: 'transparent', color: '#6C3CE1' },
+                      alignSelf: 'flex-start', color: '#F6BC0D', fontWeight: 600, fontSize: '0.88rem', p: 0,
+                      '&:hover': { background: 'transparent', color: '#D9A70F' },
                     }}>
                       {dict.blog.readMore}
                     </Button>

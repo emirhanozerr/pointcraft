@@ -19,8 +19,8 @@ export const services: Service[] = [
     id: 'socialMedia',
     icon: ShareIcon,
     image: '/images/services/social-media.jpg',
-    gradient: 'linear-gradient(135deg, #6C3CE1 0%, #8B5CF6 100%)',
-    glowColor: 'rgba(108, 60, 225, 0.3)',
+    gradient: 'linear-gradient(135deg, #F6BC0D 0%, #FDCB35 100%)',
+    glowColor: 'rgba(246, 188, 13, 0.3)',
   },
   {
     id: 'aiVideo',

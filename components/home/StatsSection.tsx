@@ -33,7 +33,7 @@ function AnimatedCounter({ target, duration = 2000 }: { target: number; duration
 }
 
 const stats = [
-  { key: 'projects', value: 100, suffix: '+', icon: FolderIcon, gradient: 'linear-gradient(135deg, #6C3CE1, #8B5CF6)' },
+  { key: 'projects', value: 100, suffix: '+', icon: FolderIcon, gradient: 'linear-gradient(135deg, #F6BC0D, #FDCB35)' },
   { key: 'clients', value: 100, suffix: '+', icon: GroupsIcon, gradient: 'linear-gradient(135deg, #00D4AA, #34E8C4)' },
   { key: 'experience', value: 8, suffix: '+', icon: CalendarMonthIcon, gradient: 'linear-gradient(135deg, #FF6B35, #FF8F6B)' },
   { key: 'team', value: 15, suffix: '+', icon: PersonIcon, gradient: 'linear-gradient(135deg, #E91E8C, #FF69B4)' },
@@ -44,7 +44,7 @@ export default function StatsSection({ dict }: StatsSectionProps) {
     <Box component="section" id="stats-section" sx={{ py: 10, position: 'relative' }}>
       <Box sx={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, transparent 0%, rgba(108,60,225,0.04) 50%, transparent 100%)',
+        background: 'linear-gradient(180deg, transparent 0%, rgba(246, 188, 13, 0.04) 50%, transparent 100%)',
       }} />
       <Container maxWidth="lg">
         <Grid container spacing={4}>
@@ -62,9 +62,9 @@ export default function StatsSection({ dict }: StatsSectionProps) {
                     <Box sx={{
                       width: 56, height: 56, borderRadius: '14px', background: stat.gradient,
                       display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 2,
-                      boxShadow: `0 8px 25px ${stat.gradient.includes('6C3CE1') ? 'rgba(108,60,225,0.3)' : stat.gradient.includes('00D4AA') ? 'rgba(0,212,170,0.3)' : stat.gradient.includes('FF6B35') ? 'rgba(255,107,53,0.3)' : 'rgba(233,30,140,0.3)'}`,
+                      boxShadow: `0 8px 25px ${stat.gradient.includes('F6BC0D') ? 'rgba(246, 188, 13, 0.3)' : stat.gradient.includes('00D4AA') ? 'rgba(0,212,170,0.3)' : stat.gradient.includes('FF6B35') ? 'rgba(255,107,53,0.3)' : 'rgba(233,30,140,0.3)'}`,
                     }}>
-                      <Icon sx={{ fontSize: 28, color: '#fff' }} />
+                      <Icon sx={{ fontSize: 28, color: stat.gradient.includes('F2BB13') ? '#000' : '#fff' }} />
                     </Box>
                     <Typography sx={{
                       fontSize: { xs: '2.5rem', md: '3rem' }, fontWeight: 800,

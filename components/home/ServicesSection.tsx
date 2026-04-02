@@ -228,7 +228,7 @@ export default function ServicesSection({ dict, lang }: ServicesSectionProps) {
       }}>
         <Box sx={{
           position: 'absolute', top: '10%', left: '5%', width: 600, height: 600,
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,60,225,0.05), transparent 70%)', filter: 'blur(120px)',
+          borderRadius: '50%', background: 'radial-gradient(circle, rgba(246, 188, 13, 0.05), transparent 70%)', filter: 'blur(120px)',
         }} />
         <Box sx={{
           position: 'absolute', bottom: '10%', right: '5%', width: 500, height: 500,
@@ -249,7 +249,7 @@ export default function ServicesSection({ dict, lang }: ServicesSectionProps) {
                 px: 2, py: 0.5, borderRadius: 'full', background: 'rgba(0,0,0,0.03)',
                 border: '1px solid rgba(0,0,0,0.08)', backdropFilter: 'blur(10px)'
               }}>
-                <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#6C3CE1', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#F6BC0D', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                   {dict.services.badge}
                 </Typography>
               </Box>

@@ -58,7 +58,7 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
       {/* Floating Decorative Elements */}
       <Box sx={{ position: 'absolute', top: '15%', left: '8%', zIndex: 2, opacity: 0.15 }}>
         <motion.div animate={{ y: [-20, 20, -20] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}>
-          <Box sx={{ width: 80, height: 80, borderRadius: '20px', border: '2px solid rgba(108,60,225,0.5)', transform: 'rotate(45deg)' }} />
+          <Box sx={{ width: 80, height: 80, borderRadius: '20px', border: '2px solid rgba(246,188,13,0.5)', transform: 'rotate(45deg)' }} />
         </motion.div>
       </Box>
       <Box sx={{ position: 'absolute', top: '25%', right: '12%', zIndex: 2, opacity: 0.12 }}>
@@ -73,7 +73,7 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
       </Box>
       <Box sx={{ position: 'absolute', bottom: '30%', right: '8%', zIndex: 2, opacity: 0.08 }}>
         <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}>
-          <Box sx={{ width: 120, height: 120, borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,60,225,0.3), transparent)' }} />
+          <Box sx={{ width: 120, height: 120, borderRadius: '50%', background: 'radial-gradient(circle, rgba(246, 188, 13, 0.3), transparent)' }} />
         </motion.div>
       </Box>
 
@@ -90,9 +90,9 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
               label={dict.hero.badge}
               sx={{
                 mb: 3,
-                background: 'rgba(108, 60, 225, 0.15)',
-                color: '#8B5CF6',
-                border: '1px solid rgba(108, 60, 225, 0.3)',
+                background: 'rgba(246, 188, 13, 0.15)',
+                color: '#B88E00',
+                border: '1px solid rgba(246, 188, 13, 0.3)',
                 fontWeight: 600,
                 fontSize: '0.85rem',
                 px: 1,
@@ -156,16 +156,17 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
                     size="large"
                     endIcon={<ArrowForwardIcon />}
                     sx={{
-                      background: 'linear-gradient(135deg, #6C3CE1, #8B5CF6)',
-                      boxShadow: '0 8px 30px rgba(108,60,225,0.4)',
+                      background: 'linear-gradient(135deg, #F6BC0D, #FDCB35)',
+                      color: '#000',
+                      boxShadow: '0 8px 30px rgba(246, 188, 13, 0.4)',
                       borderRadius: '14px',
                       py: 1.8,
                       px: 4,
                       fontSize: '1rem',
                       fontWeight: 700,
                       '&:hover': {
-                        background: 'linear-gradient(135deg, #5521C4, #6C3CE1)',
-                        boxShadow: '0 12px 40px rgba(108,60,225,0.5)',
+                        background: 'linear-gradient(135deg, #D9A70F, #F6BC0D)',
+                        boxShadow: '0 12px 40px rgba(246, 188, 13, 0.5)',
                       },
                     }}
                   >
@@ -189,8 +190,8 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
                       fontSize: '1rem',
                       fontWeight: 600,
                       '&:hover': {
-                        borderColor: 'rgba(108,60,225,0.5)',
-                        background: 'rgba(108,60,225,0.08)',
+                        borderColor: 'rgba(246, 188, 13, 0.5)',
+                        background: 'rgba(246, 188, 13, 0.08)',
                       },
                     }}
                   >

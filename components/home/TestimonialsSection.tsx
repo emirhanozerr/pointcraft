@@ -27,7 +27,7 @@ export default function TestimonialsSection({ dict, lang }: TestimonialsSectionP
       <Box sx={{
         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
         width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(108,60,225,0.04), transparent)', filter: 'blur(60px)',
+        background: 'radial-gradient(circle, rgba(246, 188, 13, 0.04), transparent)', filter: 'blur(60px)',
       }} />
 
       <Container maxWidth="md">
@@ -39,8 +39,8 @@ export default function TestimonialsSection({ dict, lang }: TestimonialsSectionP
         >
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Chip label={dict.testimonials.badge} sx={{
-              mb: 2, background: 'rgba(108,60,225,0.1)', color: '#8B5CF6',
-              border: '1px solid rgba(108,60,225,0.25)', fontWeight: 600,
+              mb: 2, background: 'rgba(246, 188, 13, 0.1)', color: '#B88E00',
+              border: '1px solid rgba(246, 188, 13, 0.25)', fontWeight: 600,
             }} />
             <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, fontWeight: 800, mb: 2, color: '#1A1A1A' }}>
               {dict.testimonials.title}
@@ -66,16 +66,17 @@ export default function TestimonialsSection({ dict, lang }: TestimonialsSectionP
                 sx={{ p: { xs: 4, md: 6 }, borderRadius: '24px', textAlign: 'center', position: 'relative' }}
               >
                 <FormatQuoteIcon sx={{
-                  fontSize: 48, color: 'rgba(108,60,225,0.2)', position: 'absolute',
+                  fontSize: 48, color: 'rgba(246, 188, 13, 0.2)', position: 'absolute',
                   top: 20, left: { xs: '50%', md: 24 }, transform: { xs: 'translateX(-50%)', md: 'none' }
                 }} />
 
                 <Avatar
                   sx={{
                     width: 72, height: 72, mx: 'auto', mb: 3, mt: { xs: 5, md: 0 },
-                    border: '3px solid rgba(108,60,225,0.4)',
-                    background: 'linear-gradient(135deg, #6C3CE1, #00D4AA)',
+                    border: '3px solid rgba(246, 188, 13, 0.4)',
+                    background: 'linear-gradient(135deg, #F6BC0D, #00D4AA)',
                     fontSize: '1.5rem', fontWeight: 700,
+                    color: '#000',
                   }}
                 >
                   {t.name.charAt(0)}
@@ -105,7 +106,7 @@ export default function TestimonialsSection({ dict, lang }: TestimonialsSectionP
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 4, alignItems: 'center' }}>
             <IconButton onClick={prev} sx={{
               border: '1px solid rgba(0,0,0,0.1)', color: '#1A1A1A',
-              '&:hover': { borderColor: '#6C3CE1', background: 'rgba(108,60,225,0.1)' },
+              '&:hover': { borderColor: '#F6BC0D', background: 'rgba(246, 188, 13, 0.1)' },
             }}>
               <ArrowBackIosNewIcon sx={{ fontSize: 16 }} />
             </IconButton>
@@ -117,7 +118,7 @@ export default function TestimonialsSection({ dict, lang }: TestimonialsSectionP
                   onClick={() => setCurrent(i)}
                   sx={{
                     width: i === current ? 24 : 8, height: 8, borderRadius: 4,
-                    background: i === current ? 'linear-gradient(90deg, #6C3CE1, #00D4AA)' : 'rgba(0,0,0,0.15)',
+                    background: i === current ? 'linear-gradient(90deg, #F6BC0D, #00D4AA)' : 'rgba(0,0,0,0.15)',
                     transition: 'all 0.3s', cursor: 'pointer',
                   }}
                 />
@@ -126,7 +127,7 @@ export default function TestimonialsSection({ dict, lang }: TestimonialsSectionP
 
             <IconButton onClick={next} sx={{
               border: '1px solid rgba(0,0,0,0.1)', color: '#1A1A1A',
-              '&:hover': { borderColor: '#6C3CE1', background: 'rgba(108,60,225,0.1)' },
+              '&:hover': { borderColor: '#F6BC0D', background: 'rgba(246, 188, 13, 0.1)' },
             }}>
               <ArrowForwardIosIcon sx={{ fontSize: 16 }} />
             </IconButton>

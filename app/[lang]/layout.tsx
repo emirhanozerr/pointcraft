@@ -84,7 +84,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} className={`${notoSerif.variable}`}>
-      <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <body suppressHydrationWarning style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <StoreProvider>
           <ThemeProvider>
             <Navbar dict={dict} lang={lang as Locale} />

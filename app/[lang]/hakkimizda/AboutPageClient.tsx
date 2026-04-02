@@ -37,7 +37,7 @@ const valueIcons: Record<string, React.ReactNode> = {
 }
 
 const valueGradients: Record<string, string> = {
-  innovation: 'linear-gradient(135deg, #6C3CE1, #8B5CF6)',
+  innovation: 'linear-gradient(135deg, #F6BC0D, #FDCB35)',
   quality: 'linear-gradient(135deg, #00D4AA, #34E8C4)',
   transparency: 'linear-gradient(135deg, #FF6B35, #FF8F6B)',
   results: 'linear-gradient(135deg, #00B4D8, #48CAE4)',
@@ -51,8 +51,8 @@ export default function AboutPageClient({ dict, lang }: Props) {
         <Container maxWidth="md">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <Chip label={dict.about.badge} sx={{
-              mb: 2, background: 'rgba(108,60,225,0.1)', color: '#8B5CF6',
-              border: '1px solid rgba(108,60,225,0.25)', fontWeight: 600,
+              mb: 2, background: 'rgba(246, 188, 13, 0.1)', color: '#B88E00',
+              border: '1px solid rgba(246, 188, 13, 0.25)', fontWeight: 600,
             }} />
             <Typography variant="h1" sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 800, mb: 2, color: '#1A1A1A' }}>
               {dict.about.title}
@@ -68,7 +68,7 @@ export default function AboutPageClient({ dict, lang }: Props) {
       <Container maxWidth="lg" sx={{ pb: 10 }}>
         <Grid container spacing={4}>
           {[
-            { data: dict.about.mission, gradient: 'rgba(108,60,225,0.08)', border: 'rgba(108,60,225,0.2)' },
+            { data: dict.about.mission, gradient: 'rgba(246, 188, 13, 0.08)', border: 'rgba(246, 188, 13, 0.2)' },
             { data: dict.about.vision, gradient: 'rgba(0,212,170,0.08)', border: 'rgba(0,212,170,0.2)' },
           ].map((item, i) => (
             <Grid size={{ xs: 12, md: 6 }} key={i}>
@@ -116,10 +116,9 @@ export default function AboutPageClient({ dict, lang }: Props) {
                     p: 4, borderRadius: '20px', textAlign: 'center', height: '100%',
                   }}>
                     <Box sx={{
-                      width: 56, height: 56, borderRadius: '14px',
                       background: valueGradients[key], display: 'flex',
                       alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 3,
-                      color: '#fff',
+                      color: key === 'innovation' ? '#000' : '#fff',
                     }}>
                       {valueIcons[key]}
                     </Box>
@@ -165,16 +164,17 @@ export default function AboutPageClient({ dict, lang }: Props) {
                   }}>
                     <Avatar sx={{
                       width: 80, height: 80, mx: 'auto', mb: 2,
-                      border: '3px solid rgba(108,60,225,0.3)',
-                      background: 'linear-gradient(135deg, #6C3CE1, #00D4AA)',
+                      border: '3px solid rgba(246, 188, 13, 0.3)',
+                      background: 'linear-gradient(135deg, #F6BC0D, #00D4AA)',
                       fontSize: '2rem', fontWeight: 700,
+                      color: '#000',
                     }}>
                       {member.name.charAt(0)}
                     </Avatar>
                     <Typography sx={{ fontWeight: 700, fontSize: '1.05rem', mb: 0.5, color: '#1A1A1A' }}>
                       {member.name}
                     </Typography>
-                    <Typography sx={{ color: '#8B5CF6', fontSize: '0.88rem', mb: 2 }}>
+                    <Typography sx={{ color: '#F6BC0D', fontSize: '0.88rem', mb: 2 }}>
                       {lang === 'tr' ? member.roleTr : member.roleEn}
                     </Typography>
                     <Box sx={{ display: 'flex', justifyContent: 'center', gap: 0.5 }}>

@@ -28,7 +28,7 @@ export default function ContactCTA({ dict, lang }: ContactCTAProps) {
             borderRadius: '28px', position: 'relative', overflow: 'hidden',
             p: { xs: 5, md: 8 }, textAlign: 'center',
             backgroundColor: '#f8f9fa',
-            border: '1px solid rgba(108,60,225,0.2)',
+            border: '1px solid rgba(246, 188, 13, 0.2)',
           }}>
             {/* Soft Background Image (Pure Abstract Design) */}
             <Box sx={{
@@ -43,7 +43,7 @@ export default function ContactCTA({ dict, lang }: ContactCTAProps) {
             {/* Decorative elements */}
             <Box sx={{
               position: 'absolute', top: -80, right: -80, width: 200, height: 200,
-              borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,60,225,0.3), transparent)', filter: 'blur(40px)',
+              borderRadius: '50%', background: 'radial-gradient(circle, rgba(246, 188, 13, 0.3), transparent)', filter: 'blur(40px)',
               zIndex: 1, pointerEvents: 'none'
             }} />
             <Box sx={{
@@ -71,13 +71,14 @@ export default function ContactCTA({ dict, lang }: ContactCTAProps) {
                   size="large"
                   endIcon={<ArrowForwardIcon />}
                   sx={{
-                    background: 'linear-gradient(135deg, #6C3CE1, #8B5CF6)',
-                    boxShadow: '0 8px 30px rgba(108,60,225,0.4)',
+                    background: 'linear-gradient(135deg, #F6BC0D, #FDCB35)',
+                    boxShadow: '0 8px 30px rgba(246, 188, 13, 0.4)',
+                    color: '#000',
                     borderRadius: '14px', py: 2, px: 5, fontSize: '1.05rem', fontWeight: 700,
                     position: 'relative',
                     '&:hover': {
-                      background: 'linear-gradient(135deg, #5521C4, #6C3CE1)',
-                      boxShadow: '0 12px 40px rgba(108,60,225,0.5)',
+                      background: 'linear-gradient(135deg, #D9A70F, #F6BC0D)',
+                      boxShadow: '0 12px 40px rgba(246, 188, 13, 0.5)',
                     },
                   }}
                 >
@@ -98,7 +99,7 @@ export default function ContactCTA({ dict, lang }: ContactCTAProps) {
                 { icon: <VerifiedIcon />, text: dict.cta.stats3 },
               ].map((item, i) => (
                 <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'rgba(0,0,0,0.6)' }}>
-                  <Box sx={{ color: '#6C3CE1' }}>{item.icon}</Box>
+                  <Box sx={{ color: '#F6BC0D' }}>{item.icon}</Box>
                   <Typography sx={{ fontSize: '0.9rem', fontWeight: 500 }}>{item.text}</Typography>
                 </Box>
               ))}

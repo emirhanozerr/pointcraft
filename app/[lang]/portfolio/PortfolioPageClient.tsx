@@ -35,8 +35,8 @@ export default function PortfolioPageClient({ dict, lang }: Props) {
         <Container maxWidth="md">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <Chip label={dict.portfolio.badge} sx={{
-              mb: 2, background: 'rgba(255,107,53,0.1)', color: '#FF6B35',
-              border: '1px solid rgba(255,107,53,0.25)', fontWeight: 600,
+              mb: 2, background: 'rgba(246, 188, 13, 0.1)', color: '#B88E00',
+              border: '1px solid rgba(246, 188, 13, 0.25)', fontWeight: 600,
             }} />
             <Typography variant="h1" sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 800, mb: 2, color: '#1A1A1A' }}>
               {dict.portfolio.title}
@@ -61,14 +61,14 @@ export default function PortfolioPageClient({ dict, lang }: Props) {
                 py: 1,
                 fontSize: '0.88rem',
                 fontWeight: 600,
-                background: activeFilter === key ? 'linear-gradient(135deg, #6C3CE1, #8B5CF6)' : 'rgba(0,0,0,0.04)',
-                color: activeFilter === key ? '#fff' : 'rgba(0,0,0,0.6)',
+                background: activeFilter === key ? 'linear-gradient(135deg, #F6BC0D, #FDCB35)' : 'rgba(0,0,0,0.04)',
+                color: activeFilter === key ? '#000' : 'rgba(0,0,0,0.6)',
                 border: `1px solid ${activeFilter === key ? 'transparent' : 'rgba(0,0,0,0.08)'}`,
-                boxShadow: activeFilter === key ? '0 4px 15px rgba(108,60,225,0.3)' : 'none',
+                boxShadow: activeFilter === key ? '0 4px 15px rgba(246, 188, 13, 0.3)' : 'none',
                 '&:hover': {
                   background: activeFilter === key
-                    ? 'linear-gradient(135deg, #5521C4, #6C3CE1)'
-                    : 'rgba(108,60,225,0.08)',
+                    ? 'linear-gradient(135deg, #D9A70F, #F6BC0D)'
+                    : 'rgba(246, 188, 13, 0.08)',
                 },
               }}
             >
@@ -95,7 +95,7 @@ export default function PortfolioPageClient({ dict, lang }: Props) {
                     <Box sx={{
                       height: 200, position: 'relative',
                       background: `linear-gradient(135deg, ${
-                        index % 6 === 0 ? 'rgba(108,60,225,0.3), rgba(139,92,246,0.15)' :
+                        index % 6 === 0 ? 'rgba(246, 188, 13, 0.3), rgba(253,203,53,0.15)' :
                         index % 6 === 1 ? 'rgba(0,212,170,0.3), rgba(52,232,196,0.15)' :
                         index % 6 === 2 ? 'rgba(255,107,53,0.3), rgba(255,143,107,0.15)' :
                         index % 6 === 3 ? 'rgba(233,30,140,0.3), rgba(255,105,180,0.15)' :
@@ -128,8 +128,8 @@ export default function PortfolioPageClient({ dict, lang }: Props) {
                       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8 }}>
                         {project.tags.map((tag) => (
                           <Chip key={tag} label={tag} size="small" sx={{
-                            background: 'rgba(108,60,225,0.1)', color: '#8B5CF6',
-                            border: '1px solid rgba(108,60,225,0.2)', fontSize: '0.72rem',
+                            background: 'rgba(246, 188, 13, 0.1)', color: '#B88E00',
+                            border: '1px solid rgba(246, 188, 13, 0.2)', fontSize: '0.72rem',
                           }} />
                         ))}
                       </Box>

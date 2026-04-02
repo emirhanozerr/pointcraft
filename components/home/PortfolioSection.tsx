@@ -231,7 +231,7 @@ export default function PortfolioSection({ dict, lang }: PortfolioSectionProps) 
       }} />
       <Box sx={{
         position: 'absolute', bottom: '10%', left: '-5%', width: 400, height: 400,
-        borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,60,225,0.05), transparent 70%)', filter: 'blur(80px)',
+        borderRadius: '50%', background: 'radial-gradient(circle, rgba(246, 188, 13, 0.05), transparent 70%)', filter: 'blur(80px)',
         zIndex: 0, pointerEvents: 'none'
       }} />
 
@@ -290,15 +290,15 @@ export default function PortfolioSection({ dict, lang }: PortfolioSectionProps) 
             <Button
               endIcon={<ArrowForwardIcon />}
               sx={{
-                color: '#6C3CE1', 
+                color: '#B88E00', 
                 fontWeight: 800, 
                 fontSize: '1.1rem',
                 px: 4,
                 py: 1.5,
                 borderRadius: '16px',
-                background: 'rgba(108,60,225,0.05)',
+                background: 'rgba(246, 188, 13, 0.05)',
                 '&:hover': { 
-                  background: 'rgba(108,60,225,0.1)',
+                  background: 'rgba(246, 188, 13, 0.1)',
                   transform: 'translateY(-2px)'
                 },
                 transition: 'all 0.3s ease'

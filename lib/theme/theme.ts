@@ -6,9 +6,9 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#6C3CE1',
-      light: '#8B5CF6',
-      dark: '#5521C4',
+      main: '#F6BC0D',
+      light: '#FDCB35',
+      dark: '#D9A70F',
     },
     secondary: {
       main: '#00D4AA',
@@ -72,11 +72,12 @@ const theme = createTheme({
           fontSize: '0.95rem',
         },
         containedPrimary: {
-          background: 'linear-gradient(135deg, #6C3CE1 0%, #8B5CF6 100%)',
-          boxShadow: '0 4px 15px rgba(108, 60, 225, 0.4)',
+          background: 'linear-gradient(135deg, #F6BC0D 0%, #FDCB35 100%)',
+          color: '#000',
+          boxShadow: '0 4px 15px rgba(246, 188, 13, 0.4)',
           '&:hover': {
-            background: 'linear-gradient(135deg, #5521C4 0%, #6C3CE1 100%)',
-            boxShadow: '0 6px 20px rgba(108, 60, 225, 0.6)',
+            background: 'linear-gradient(135deg, #D9A70F 0%, #F6BC0D 100%)',
+            boxShadow: '0 6px 20px rgba(246, 188, 13, 0.6)',
           },
         },
       },
@@ -110,10 +111,10 @@ const theme = createTheme({
               borderColor: 'rgba(0, 0, 0, 0.12)',
             },
             '&:hover fieldset': {
-              borderColor: 'rgba(108, 60, 225, 0.5)',
+              borderColor: 'rgba(246, 188, 13, 0.5)',
             },
             '&.Mui-focused fieldset': {
-              borderColor: '#6C3CE1',
+              borderColor: '#F6BC0D',
             },
           },
         },

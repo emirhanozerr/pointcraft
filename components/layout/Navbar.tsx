@@ -89,7 +89,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                   component="img"
                   src="/images/logo.png"
                   alt="Pointcraft Logo"
-                  sx={{ height: { xs: 65, md: 65 }, width: 'auto', display: 'block', objectFit: 'cover' }}
+                  sx={{ height: { xs: 45, md: 45 }, width: 'auto', display: 'block', objectFit: 'cover' }}
                 />
               </Box>
             </Link>
@@ -105,13 +105,13 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                   >
                     <Button
                       sx={{
-                        color: isActive(item.href) ? '#6C3CE1' : 'rgba(0,0,0,0.7)',
+                        color: isActive(item.href) ? '#F6BC0D' : 'rgba(0,0,0,0.7)',
                         fontWeight: isActive(item.href) ? 700 : 500,
                         fontSize: '0.9rem',
                         position: 'relative',
                         '&:hover': {
                           color: '#000',
-                          background: 'rgba(108, 60, 225, 0.08)',
+                          background: 'rgba(246, 188, 13, 0.08)',
                         },
                         '&::after': isActive(item.href)
                           ? {
@@ -123,7 +123,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                             width: 20,
                             height: 2,
                             borderRadius: 1,
-                            background: 'linear-gradient(90deg, #6C3CE1, #00D4AA)',
+                            background: 'linear-gradient(90deg, #F6BC0D, #00D4AA)',
                           }
                           : {},
                       }}
@@ -146,8 +146,8 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                       borderRadius: '8px',
                       px: 1.5,
                       '&:hover': {
-                        borderColor: 'rgba(108, 60, 225, 0.5)',
-                        background: 'rgba(108, 60, 225, 0.08)',
+                        borderColor: 'rgba(246, 188, 13, 0.5)',
+                        background: 'rgba(246, 188, 13, 0.08)',
                         color: '#000',
                       },
                     }}
@@ -162,14 +162,15 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                     variant="contained"
                     sx={{
                       ml: 1,
-                      background: 'linear-gradient(135deg, #6C3CE1 0%, #8B5CF6 100%)',
-                      boxShadow: '0 4px 15px rgba(108, 60, 225, 0.3)',
+                      background: 'linear-gradient(135deg, #F6BC0D 0%, #FDCB35 100%)',
+                      color: '#000',
+                      boxShadow: '0 4px 15px rgba(246, 188, 13, 0.3)',
                       borderRadius: '10px',
                       fontWeight: 600,
                       fontSize: '0.9rem',
                       '&:hover': {
-                        background: 'linear-gradient(135deg, #5521C4 0%, #6C3CE1 100%)',
-                        boxShadow: '0 6px 20px rgba(108, 60, 225, 0.5)',
+                        background: 'linear-gradient(135deg, #D9A70F 0%, #F6BC0D 100%)',
+                        boxShadow: '0 6px 20px rgba(246, 188, 13, 0.5)',
                         transform: 'translateY(-1px)',
                       },
                       transition: 'all 0.3s ease',
@@ -228,7 +229,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
               component="img"
               src="/images/logo.png"
               alt="Pointcraft Logo"
-              sx={{ height: 50, width: 'auto', display: 'block', objectFit: 'contain', margin: '0 auto' }}
+              sx={{ height: 45, width: 'auto', display: 'block', objectFit: 'contain', margin: '0 auto' }}
             />
           </Box>
 
@@ -245,10 +246,10 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                       borderRadius: '10px',
                       mb: 0.5,
                       justifyContent: 'center',
-                      color: isActive(item.href) ? '#6C3CE1' : 'rgba(0,0,0,0.7)',
-                      background: isActive(item.href) ? 'rgba(108, 60, 225, 0.1)' : 'transparent',
+                      color: isActive(item.href) ? '#F6BC0D' : 'rgba(0,0,0,0.7)',
+                      background: isActive(item.href) ? 'rgba(246, 188, 13, 0.1)' : 'transparent',
                       '&:hover': {
-                        background: 'rgba(108, 60, 225, 0.08)',
+                        background: 'rgba(246, 188, 13, 0.08)',
                         color: '#000',
                       },
                     }}
@@ -273,11 +274,15 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                 variant="contained"
                 fullWidth
                 sx={{
-                  background: 'linear-gradient(135deg, #6C3CE1 0%, #8B5CF6 100%)',
+                  background: 'linear-gradient(135deg, #F6BC0D 0%, #FDCB35 100%)',
+                  color: '#000',
                   borderRadius: '10px',
                   py: 1.5,
                   fontWeight: 600,
                   fontSize: '1rem',
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, #D9A70F 0%, #F6BC0D 100%)',
+                  }
                 }}
               >
                 {dict.nav.getQuote}
