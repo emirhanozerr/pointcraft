@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import {
   Box, Typography, Container, Card, CardContent, CircularProgress, 
   Chip, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button,
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
+  Tabs, Tab
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import VisibilityIcon from '@mui/icons-material/Visibility'
@@ -28,6 +29,9 @@ export default function AdminPanelClient() {
   const [error, setError] = useState('')
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null)
 
+  const [tabIndex, setTabIndex] = useState(0)
+  const [subscribers, setSubscribers] = useState<{ id: string, email: string, createdAt: string }[]>([])
+
   // Basic authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
@@ -45,9 +49,21 @@ export default function AdminPanelClient() {
     }
   }
 
+  const fetchSubscribers = async () => {
+    try {
+      const res = await fetch('/api/admin/subscribers')
+      if (!res.ok) throw new Error('API hatası')
+      const data = await res.json()
+      setSubscribers(data)
+    } catch (err: any) {
+      console.error(err)
+    }
+  }
+
   useEffect(() => {
     if (isAuthenticated) {
       fetchSubmissions()
+      fetchSubscribers()
     }
   }, [isAuthenticated])
 
@@ -102,6 +118,17 @@ export default function AdminPanelClient() {
     if (!sub.read) markAsRead(sub.id, false)
   }
 
+  const deleteSubscriber = async (id: string) => {
+    if (!confirm('Bu aboneyi silmek istediğinize emin misiniz?')) return
+    
+    try {
+      await fetch(`/api/admin/subscribers?id=${id}`, { method: 'DELETE' })
+      fetchSubscribers()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   if (!isAuthenticated) {
     return (
       <Container maxWidth="sm" sx={{ mt: 10 }}>
@@ -126,13 +153,21 @@ export default function AdminPanelClient() {
 
   return (
     <Container maxWidth="xl" sx={{ mt: 4 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h4" sx={{ fontWeight: 800, color: '#1A1A1A' }}>
-          Gelen Mesajlar
+          Admin Paneli
         </Typography>
         <Button onClick={handleLogout} variant="outlined" color="error">Çıkış Yap</Button>
       </Box>
 
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
+        <Tabs value={tabIndex} onChange={(e, v) => setTabIndex(v)} TabIndicatorProps={{ style: { background: '#F6BC0D' } }}>
+          <Tab label="Gelen Mesajlar" sx={{ fontWeight: 'bold', '&.Mui-selected': { color: '#F6BC0D' } }} />
+          <Tab label="Bülten Aboneleri" sx={{ fontWeight: 'bold', '&.Mui-selected': { color: '#F6BC0D' } }} />
+        </Tabs>
+      </Box>
+
+      {tabIndex === 0 && (
       <Card sx={{ borderRadius: 3, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 10 }}><CircularProgress sx={{ color: '#F6BC0D' }} /></Box>
@@ -189,6 +224,40 @@ export default function AdminPanelClient() {
           </TableContainer>
         )}
       </Card>
+      )}
+
+      {tabIndex === 1 && (
+        <Card sx={{ borderRadius: 3, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+          {subscribers.length === 0 ? (
+            <Typography sx={{ p: 4, textAlign: 'center', color: 'gray' }}>Henüz abone olan kimse yok.</Typography>
+          ) : (
+            <TableContainer component={Paper} elevation={0}>
+              <Table>
+                <TableHead sx={{ background: '#f8f9fa' }}>
+                  <TableRow>
+                    <TableCell><strong>E-posta</strong></TableCell>
+                    <TableCell><strong>Kayıt Tarihi</strong></TableCell>
+                    <TableCell align="right"><strong>İşlem</strong></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {subscribers.map((sub) => (
+                    <TableRow key={sub.id}>
+                      <TableCell sx={{ fontWeight: 'bold' }}>{sub.email}</TableCell>
+                      <TableCell>{new Date(sub.createdAt).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</TableCell>
+                      <TableCell align="right">
+                        <IconButton onClick={() => deleteSubscriber(sub.id)} color="error" title="Sil">
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </Card>
+      )}
 
       <Dialog open={!!selectedSubmission} onClose={() => setSelectedSubmission(null)} maxWidth="sm" fullWidth>
         {selectedSubmission && (

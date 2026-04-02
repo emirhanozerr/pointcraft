@@ -73,6 +73,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
         position="fixed"
         id="main-navbar"
         sx={{
+          top: 0,
           background: scrolled ? 'rgba(255, 255, 255, 0.92)' : 'transparent',
           backdropFilter: scrolled ? 'blur(24px)' : 'none',
           borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : 'none',
@@ -81,7 +82,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
         }}
       >
         <Container maxWidth="xl">
-          <Toolbar sx={{ justifyContent: 'space-between', py: 1 }}>
+          <Toolbar sx={{ justifyContent: 'space-between', py: 1, pt: { xs: 2.5, md: 1 } }}>
             {/* Logo */}
             <Link href={`/${lang}`} style={{ textDecoration: 'none' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -89,7 +90,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                   component="img"
                   src="/images/logo.png"
                   alt="Pointcraft Logo"
-                  sx={{ height: { xs: 45, md: 45 }, width: 'auto', display: 'block', objectFit: 'cover' }}
+                  sx={{ height: { xs: 32, md: 45 }, width: 'auto', display: 'block', objectFit: 'cover' }}
                 />
               </Box>
             </Link>

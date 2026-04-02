@@ -183,8 +183,8 @@
       }
     },
     "team": {
-      "title": "Ekibimiz",
-      "description": "Alanında uzman, tutkulu profesyonellerden oluşan ekibimizle tanışın."
+      "title": "Kurucularımız",
+      "description": ""
     }
   },
   "blog": {
@@ -211,7 +211,7 @@
     "cookies": "Çerez Politikası",
     "newsletter": {
       "title": "Bültenimize Abone Olun",
-      "description": "Dijital dünyadan en son haberleri alın.",
+      "description": "Kampanyalı fırsatlardan haberdar olmak için bültenimize abone olun.",
       "placeholder": "E-posta adresinizi girin",
       "button": "Abone Ol"
     },

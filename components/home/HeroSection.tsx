@@ -33,27 +33,43 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
     >
       {/* Video Background */}
       <Box className="hero-video-container" sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden' }}>
-        <video
+        {/* Desktop Video */}
+        <Box
+          component="video"
           autoPlay
           muted
           loop
           playsInline
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          sx={{ width: '100%', height: '100%', objectFit: 'cover', display: { xs: 'none', md: 'block' } }}
         >
           <source src="/videos/hero.mp4" type="video/mp4" />
-        </video>
+        </Box>
 
+        {/* Mobile Video */}
+        <Box
+          component="video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          sx={{ width: '100%', height: '100%', objectFit: 'cover', display: { xs: 'block', md: 'none' } }}
+        >
+          <source src="/videos/hero1.mp4" type="video/mp4" />
+        </Box>
+
+        {/* 
         <Box sx={{
           position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
           background: {
             xs: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.45) 55%, rgba(255,255,255,0.15) 100%), radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0.15) 100%)',
             md: 'radial-gradient(ellipse at 0% 40%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 35%, transparent 70%), radial-gradient(ellipse at 85% -10%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.3) 30%, transparent 50%), radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.8) 0%, transparent 35%), radial-gradient(ellipse at 70% 60%, rgba(0,212,170,0.15) 0%, transparent 60%)'
           }
-        }} />
+        }} /> 
+        */}
       </Box>
 
       {/* Overlay */}
-      <Box className="hero-overlay" />
+      {/* <Box className="hero-overlay" /> */}
 
       {/* Floating Decorative Elements */}
       <Box sx={{ position: 'absolute', top: '15%', left: '8%', zIndex: 2, opacity: 0.15 }}>
@@ -84,71 +100,10 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          <Box sx={{ textAlign: { xs: 'center', md: 'left' }, display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' } }}>
-            {/* Badge */}
-            <Chip
-              label={dict.hero.badge}
-              sx={{
-                mb: 3,
-                background: 'rgba(246, 188, 13, 0.15)',
-                color: '#B88E00',
-                border: '1px solid rgba(246, 188, 13, 0.3)',
-                fontWeight: 600,
-                fontSize: '0.85rem',
-                px: 1,
-                '& .MuiChip-label': { px: 1.5 },
-              }}
-            />
-
-            {/* Title */}
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
-                fontWeight: 800,
-                lineHeight: 1.1,
-                mb: 3,
-                maxWidth: 900,
-                color: '#1A1A1A'
-              }}
-            >
-              {dict.hero.title1}{' '}
-              <Box
-                component="span"
-                className="gradient-text"
-                sx={{
-                  display: 'inline',
-                  backgroundSize: '200% auto',
-                  animation: 'gradient-shift 4s ease infinite',
-                  '@keyframes gradient-shift': {
-                    '0%': { backgroundPosition: '0% 50%' },
-                    '50%': { backgroundPosition: '100% 50%' },
-                    '100%': { backgroundPosition: '0% 50%' },
-                  },
-                }}
-              >
-                {dict.hero.titleHighlight}
-              </Box>
-              <br />
-              {dict.hero.title2}
-            </Typography>
-
-            {/* Description */}
-            <Typography
-              sx={{
-                fontSize: { xs: '1rem', md: '1.15rem' },
-                color: 'rgba(0,0,0,0.6)',
-                lineHeight: 1.8,
-                maxWidth: 640,
-                mb: 5,
-                mx: { xs: 'auto', md: 0 },
-              }}
-            >
-              {dict.hero.description}
-            </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', mt: { xs: '45vh', md: '55vh' } }}>
 
             {/* CTA Buttons */}
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                 <Link href={`/${lang}/iletisim`} style={{ textDecoration: 'none' }}>
                   <Button

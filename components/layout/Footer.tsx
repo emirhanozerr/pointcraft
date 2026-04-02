@@ -1,5 +1,8 @@
+'use client'
+
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { Box, Container, Grid, Typography, TextField, Button, IconButton, Divider } from '@mui/material'
+import { Box, Container, Grid, Typography, TextField, Button, IconButton, Divider, CircularProgress, Alert } from '@mui/material'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import FacebookIcon from '@mui/icons-material/Facebook'
@@ -21,6 +24,42 @@ interface FooterProps {
 
 export default function Footer({ dict, lang }: FooterProps) {
   const serviceKeys = ['socialMedia', 'aiVideo', 'software', 'videoProduction', 'seo', 'ads'] as const
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [message, setMessage] = useState('')
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email) return
+
+    setStatus('loading')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Bir hata oluştu')
+      }
+
+      setStatus('success')
+      setMessage(data.message || 'Başarıyla abone oldunuz!')
+      setEmail('')
+      
+      // 3 saniye sonra mesajı gizle
+      setTimeout(() => {
+        setStatus('idle')
+        setMessage('')
+      }, 3000)
+    } catch (err: any) {
+      setStatus('error')
+      setMessage(err.message || 'Bir hata oluştu')
+    }
+  }
 
   return (
     <Box
@@ -132,34 +171,49 @@ export default function Footer({ dict, lang }: FooterProps) {
             <Typography sx={{ color: 'rgba(0,0,0,0.6)', fontSize: '0.88rem', mb: 2.5 }}>
               {dict.footer.newsletter.description}
             </Typography>
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              <TextField
-                placeholder={dict.footer.newsletter.placeholder}
-                size="small"
-                fullWidth
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: '10px',
-                    background: 'rgba(0,0,0,0.04)',
-                    '& fieldset': { borderColor: 'rgba(0,0,0,0.1)' },
-                    '&:hover fieldset': { borderColor: 'rgba(246, 188, 13, 0.4)' },
-                    '&.Mui-focused fieldset': { borderColor: '#F6BC0D' },
-                    '& input': { color: '#1A1A1A', fontSize: '0.88rem' },
-                    '& input::placeholder': { color: 'rgba(0,0,0,0.4)' },
-                  },
-                }}
-              />
-              <Button
-                variant="contained"
-                sx={{
-                  minWidth: 48, borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #F6BC0D, #FDCB35)',
-                  color: '#000',
-                  '&:hover': { background: 'linear-gradient(135deg, #D9A70F, #F6BC0D)' },
-                }}
-              >
-                <SendIcon sx={{ fontSize: 18 }} />
-              </Button>
+            <Box component="form" onSubmit={handleSubscribe} sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '100%' }}>
+              <Box sx={{ display: 'flex', gap: 1 }}>
+                <TextField
+                  placeholder={dict.footer.newsletter.placeholder}
+                  type="email"
+                  size="small"
+                  fullWidth
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={status === 'loading'}
+                  required
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '10px',
+                      background: 'rgba(0,0,0,0.04)',
+                      '& fieldset': { borderColor: 'rgba(0,0,0,0.1)' },
+                      '&:hover fieldset': { borderColor: 'rgba(246, 188, 13, 0.4)' },
+                      '&.Mui-focused fieldset': { borderColor: '#F6BC0D' },
+                      '& input': { color: '#1A1A1A', fontSize: '0.88rem' },
+                      '& input::placeholder': { color: 'rgba(0,0,0,0.4)' },
+                    },
+                  }}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={status === 'loading'}
+                  sx={{
+                    minWidth: 48, borderRadius: '10px',
+                    background: 'linear-gradient(135deg, #F6BC0D, #FDCB35)',
+                    color: '#000',
+                    '&:hover': { background: 'linear-gradient(135deg, #D9A70F, #F6BC0D)' },
+                    '&.Mui-disabled': { background: '#e0e0e0' }
+                  }}
+                >
+                  {status === 'loading' ? <CircularProgress size={18} color="inherit" /> : <SendIcon sx={{ fontSize: 18 }} />}
+                </Button>
+              </Box>
+              {message && (
+                <Alert severity={status === 'success' ? 'success' : 'error'} sx={{ mt: 1, py: 0, borderRadius: '8px' }}>
+                  {message}
+                </Alert>
+              )}
             </Box>
           </Grid>
         </Grid>
