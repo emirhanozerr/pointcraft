@@ -1,0 +1,220 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "about": "Hakkımızda",
+    "portfolio": "Portföy",
+    "blog": "Blog",
+    "contact": "İletişim",
+    "getQuote": "Teklif Al"
+  },
+  "hero": {
+    "badge": "Dijital Çözüm Ortağınız",
+    "title1": "Dijital",
+    "titleHighlight": "Pazarlamada Sonuç Odaklı",
+    "title2": " Çözüm Ortağınız",
+    "description": "Markanızı dijitalde büyütmek için sosyal medya yönetiminden yazılım çözümlerine kadar her alanda yanınızdayız.",
+    "cta1": "Projeni Başlat",
+    "cta2": "Hizmetleri İncele",
+    "scrollText": "Keşfetmek için kaydır"
+  },
+  "services": {
+    "badge": "Hizmetlerimiz",
+    "title": "Dijital Başarınız İçin Her Şey Bir Arada",
+    "description": "360° dijital çözümlerle markanızı geleceğe taşıyoruz.",
+    "items": {
+      "socialMedia": {
+        "title": "Sosyal Medya Yönetimi",
+        "description": "Instagram, TikTok, LinkedIn ve tüm platformlarda stratejik içerik planlaması, topluluk yönetimi ve organik büyüme.",
+        "features": [
+          "İçerik Stratejisi",
+          "Topluluk Yönetimi",
+          "Analiz & Raporlama",
+          "Büyüme Stratejileri"
+        ]
+      },
+      "aiVideo": {
+        "title": "AI ile Video İçerik Üretimi",
+        "description": "Yapay zeka teknolojileriyle hızlı, yaratıcı ve etkileyici video içerikler üretiyoruz.",
+        "features": [
+          "AI Video Üretimi",
+          "Senaryo Yazımı",
+          "Otomasyon",
+          "Toplu Üretim"
+        ]
+      },
+      "software": {
+        "title": "Yazılım Hizmetleri",
+        "description": "Web uygulamaları, mobil uygulamalar ve özel yazılım çözümleri ile işinizi dijitalleştiriyoruz.",
+        "features": [
+          "Web Uygulamaları",
+          "Mobil Uygulamalar",
+          "API Entegrasyonları",
+          "CRM & ERP"
+        ]
+      },
+      "videoProduction": {
+        "title": "Video Çekim & Kurgu",
+        "description": "Profesyonel ekipman ve yaratıcı ekibimizle markanız için etkileyici video içerikler oluşturuyoruz.",
+        "features": [
+          "Reklam Filmleri",
+          "Kurumsal Videolar",
+          "Ürün Tanıtım",
+          "Post-Prodüksiyon"
+        ]
+      },
+      "seo": {
+        "title": "SEO Optimizasyonu",
+        "description": "Google'da üst sıralarda yer alın. Teknik SEO, içerik optimizasyonu ve link building stratejileri.",
+        "features": [
+          "Teknik SEO",
+          "İçerik Optimizasyonu",
+          "Link Building",
+          "Yerel SEO"
+        ]
+      },
+      "ads": {
+        "title": "Reklam Hizmetleri",
+        "description": "Google Ads, Meta Ads ve dijital reklam platformlarında ROI odaklı kampanya yönetimi.",
+        "features": [
+          "Google Ads",
+          "Meta Ads",
+          "Remarketing",
+          "Performans Analizi"
+        ]
+      }
+    },
+    "learnMore": "Detaylı Bilgi"
+  },
+  "stats": {
+    "projects": "Tamamlanan Proje",
+    "clients": "Mutlu Müşteri",
+    "experience": "Yıllık Deneyim",
+    "team": "Uzman Ekip"
+  },
+  "portfolio": {
+    "badge": "Portföyümüz",
+    "title": "Son Projelerimiz",
+    "description": "Müşterilerimiz için hayata geçirdiğimiz başarılı projelerden örnekler.",
+    "viewAll": "Tüm Projeleri Gör",
+    "viewProject": "Projeyi İncele",
+    "filters": {
+      "all": "Tümü",
+      "socialMedia": "Sosyal Medya",
+      "software": "Yazılım",
+      "video": "Video",
+      "seo": "SEO",
+      "ads": "Reklam"
+    }
+  },
+  "testimonials": {
+    "badge": "Müşteri Yorumları",
+    "title": "Müşterilerimiz Ne Diyor?",
+    "description": "Birlikte çalıştığımız markalardan geri bildirimler."
+  },
+  "cta": {
+    "title": "Projenizi Hayata Geçirelim",
+    "description": "Dijital dünyada fark yaratmaya hazır mısınız? Uzman ekibimizle tanışın ve markanızı bir sonraki seviyeye taşıyalım.",
+    "button": "Ücretsiz Danışmanlık Al",
+    "stats1": "7/24 Destek",
+    "stats2": "Hızlı Teslimat",
+    "stats3": "Garantili Sonuç"
+  },
+  "contact": {
+    "badge": "İletişim",
+    "title": "Bizimle İletişime Geçin",
+    "description": "Projeniz hakkında konuşalım. Size en uygun çözümü birlikte bulalım.",
+    "form": {
+      "name": "Ad Soyad",
+      "email": "E-posta Adresi",
+      "phone": "Telefon Numarası",
+      "company": "Şirket Adı",
+      "service": "İlgilendiğiniz Hizmet",
+      "selectService": "Hizmet Seçin",
+      "message": "Mesajınız",
+      "messagePlaceholder": "Projeniz hakkında bize bilgi verin...",
+      "submit": "Mesaj Gönder",
+      "sending": "Gönderiliyor...",
+      "success": "Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.",
+      "error": "Bir hata oluştu. Lütfen tekrar deneyin."
+    },
+    "info": {
+      "address": "Adres",
+      "addressValue": "İstanbul, Türkiye",
+      "phone": "Telefon",
+      "phoneValue": "+90 (212) 555 0123",
+      "email": "E-posta",
+      "emailValue": "info@pointcraft.com",
+      "hours": "Çalışma Saatleri",
+      "hoursValue": "Pzt - Cuma: 09:00 - 18:00"
+    }
+  },
+  "about": {
+    "badge": "Hakkımızda",
+    "title": "Dijital Dönüşümün Öncüleri",
+    "description": "Pointcraft olarak, markaların dijital dünyada büyümesine ve dönüşmesine yardımcı oluyoruz. Tutkumuz, yaratıcılığımız ve teknik uzmanlığımızla müşterilerimize sınırsız değer sunuyoruz.",
+    "mission": {
+      "title": "Misyonumuz",
+      "description": "Teknoloji ve yaratıcılığı birleştirerek markaların dijital potansiyelini en üst düzeye çıkarmak."
+    },
+    "vision": {
+      "title": "Vizyonumuz",
+      "description": "Dijital pazarlama ve teknoloji alanında Türkiye'nin ve bölgenin lider ajansı olmak."
+    },
+    "values": {
+      "title": "Değerlerimiz",
+      "items": {
+        "innovation": {
+          "title": "İnovasyon",
+          "description": "Sürekli yenilik ve gelişim odaklı çalışıyoruz."
+        },
+        "quality": {
+          "title": "Kalite",
+          "description": "Her projede en yüksek standartları hedefliyoruz."
+        },
+        "transparency": {
+          "title": "Şeffaflık",
+          "description": "Müşterilerimizle açık ve dürüst iletişim kuruyoruz."
+        },
+        "results": {
+          "title": "Sonuç Odaklılık",
+          "description": "Ölçülebilir başarılar elde etmeye odaklanıyoruz."
+        }
+      }
+    },
+    "team": {
+      "title": "Ekibimiz",
+      "description": "Alanında uzman, tutkulu profesyonellerden oluşan ekibimizle tanışın."
+    }
+  },
+  "blog": {
+    "badge": "Blog",
+    "title": "Güncel Yazılar & İçgörüler",
+    "description": "Dijital dünyadan en son trendler, ipuçları ve stratejiler.",
+    "readMore": "Devamını Oku",
+    "readTime": "dk okuma",
+    "categories": {
+      "all": "Tümü",
+      "socialMedia": "Sosyal Medya",
+      "seo": "SEO",
+      "technology": "Teknoloji",
+      "marketing": "Pazarlama"
+    }
+  },
+  "footer": {
+    "description": "Dijital dünyada markanızı zirveye taşıyan çözüm ortağınız.",
+    "services": "Hizmetler",
+    "company": "Şirket",
+    "legal": "Yasal",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları",
+    "cookies": "Çerez Politikası",
+    "newsletter": {
+      "title": "Bültenimize Abone Olun",
+      "description": "Dijital dünyadan en son haberleri alın.",
+      "placeholder": "E-posta adresinizi girin",
+      "button": "Abone Ol"
+    },
+    "copyright": "© 2024 Pointcraft. Tüm hakları saklıdır."
+  }
+}

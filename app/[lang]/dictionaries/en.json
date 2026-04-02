@@ -1,0 +1,220 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "contact": "Contact",
+    "getQuote": "Get a Quote"
+  },
+  "hero": {
+    "badge": "Your Digital Solution Partner",
+    "title1": "Your Resoult-Oriented",
+    "titleHighlight": "Partner in",
+    "title2": "Digital Marketing",
+    "description": "We support your brand’s digital growth in every area, from social media management to software solutions.",
+    "cta1": "Start Your Project",
+    "cta2": "Explore Services",
+    "scrollText": "Scroll to discover"
+  },
+  "services": {
+    "badge": "Our Services",
+    "title": "Everything You Need for Digital Success",
+    "description": "We carry your brand into the future with 360° digital solutions.",
+    "items": {
+      "socialMedia": {
+        "title": "Social Media Management",
+        "description": "Strategic content planning, community management, and organic growth across Instagram, TikTok, LinkedIn, and all platforms.",
+        "features": [
+          "Content Strategy",
+          "Community Management",
+          "Analytics & Reporting",
+          "Growth Strategies"
+        ]
+      },
+      "aiVideo": {
+        "title": "AI Video Creation",
+        "description": "We produce fast, creative, and impressive video content using artificial intelligence technologies.",
+        "features": [
+          "AI Video Production",
+          "Script Writing",
+          "Automation",
+          "Bulk Production"
+        ]
+      },
+      "software": {
+        "title": "Software Services",
+        "description": "We digitalize your business with web applications, mobile apps, and custom software solutions.",
+        "features": [
+          "Web Applications",
+          "Mobile Apps",
+          "API Integrations",
+          "CRM & ERP"
+        ]
+      },
+      "videoProduction": {
+        "title": "Video Production",
+        "description": "We create impressive video content for your brand with professional equipment and our creative team.",
+        "features": [
+          "Commercial Films",
+          "Corporate Videos",
+          "Product Demos",
+          "Post-Production"
+        ]
+      },
+      "seo": {
+        "title": "SEO Optimization",
+        "description": "Rank at the top of Google. Technical SEO, content optimization, and link building strategies.",
+        "features": [
+          "Technical SEO",
+          "Content Optimization",
+          "Link Building",
+          "Local SEO"
+        ]
+      },
+      "ads": {
+        "title": "Advertising Services",
+        "description": "ROI-focused campaign management on Google Ads, Meta Ads, and digital advertising platforms.",
+        "features": [
+          "Google Ads",
+          "Meta Ads",
+          "Remarketing",
+          "Performance Analysis"
+        ]
+      }
+    },
+    "learnMore": "Learn More"
+  },
+  "stats": {
+    "projects": "Completed Projects",
+    "clients": "Happy Clients",
+    "experience": "Years Experience",
+    "team": "Expert Team"
+  },
+  "portfolio": {
+    "badge": "Our Portfolio",
+    "title": "Recent Projects",
+    "description": "Examples of successful projects we've delivered for our clients.",
+    "viewAll": "View All Projects",
+    "viewProject": "View Project",
+    "filters": {
+      "all": "All",
+      "socialMedia": "Social Media",
+      "software": "Software",
+      "video": "Video",
+      "seo": "SEO",
+      "ads": "Advertising"
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "What Our Clients Say",
+    "description": "Feedback from brands we've worked with."
+  },
+  "cta": {
+    "title": "Let's Bring Your Project to Life",
+    "description": "Ready to make a difference in the digital world? Meet our expert team and let's take your brand to the next level.",
+    "button": "Get Free Consultation",
+    "stats1": "24/7 Support",
+    "stats2": "Fast Delivery",
+    "stats3": "Guaranteed Results"
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Get in Touch With Us",
+    "description": "Let's talk about your project. We'll find the best solution together.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "company": "Company Name",
+      "service": "Service of Interest",
+      "selectService": "Select a Service",
+      "message": "Your Message",
+      "messagePlaceholder": "Tell us about your project...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Your message has been sent successfully! We'll get back to you soon.",
+      "error": "An error occurred. Please try again."
+    },
+    "info": {
+      "address": "Address",
+      "addressValue": "Istanbul, Turkey",
+      "phone": "Phone",
+      "phoneValue": "+90 (212) 555 0123",
+      "email": "Email",
+      "emailValue": "info@pointcraft.com",
+      "hours": "Working Hours",
+      "hoursValue": "Mon - Fri: 09:00 - 18:00"
+    }
+  },
+  "about": {
+    "badge": "About Us",
+    "title": "Pioneers of Digital Transformation",
+    "description": "At Pointcraft, we help brands grow and transform in the digital world. With our passion, creativity, and technical expertise, we deliver limitless value to our clients.",
+    "mission": {
+      "title": "Our Mission",
+      "description": "To maximize brands' digital potential by combining technology and creativity."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "To be the leading agency in digital marketing and technology in Turkey and the region."
+    },
+    "values": {
+      "title": "Our Values",
+      "items": {
+        "innovation": {
+          "title": "Innovation",
+          "description": "We work with a continuous innovation and development focus."
+        },
+        "quality": {
+          "title": "Quality",
+          "description": "We aim for the highest standards in every project."
+        },
+        "transparency": {
+          "title": "Transparency",
+          "description": "We maintain open and honest communication with our clients."
+        },
+        "results": {
+          "title": "Results-Driven",
+          "description": "We focus on achieving measurable successes."
+        }
+      }
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "Meet our team of passionate professionals who are experts in their fields."
+    }
+  },
+  "blog": {
+    "badge": "Blog",
+    "title": "Latest Articles & Insights",
+    "description": "Latest trends, tips, and strategies from the digital world.",
+    "readMore": "Read More",
+    "readTime": "min read",
+    "categories": {
+      "all": "All",
+      "socialMedia": "Social Media",
+      "seo": "SEO",
+      "technology": "Technology",
+      "marketing": "Marketing"
+    }
+  },
+  "footer": {
+    "description": "Your solution partner that takes your brand to the top in the digital world.",
+    "services": "Services",
+    "company": "Company",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "cookies": "Cookie Policy",
+    "newsletter": {
+      "title": "Subscribe to Our Newsletter",
+      "description": "Get the latest news from the digital world.",
+      "placeholder": "Enter your email address",
+      "button": "Subscribe"
+    },
+    "copyright": "© 2024 Pointcraft. All rights reserved."
+  }
+}
