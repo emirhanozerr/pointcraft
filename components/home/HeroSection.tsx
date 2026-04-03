@@ -23,15 +23,8 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
   const [videoSrc, setVideoSrc] = useState<string | null>(null)
 
   useEffect(() => {
-    const handleResize = () => {
-      setVideoSrc(window.innerWidth < 900 ? '/videos/hero1.mp4' : '/videos/hero.mp4')
-    }
-    
-    // Set initial value
-    handleResize()
-    
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    // Sayfa ilk açıldığında tam o anki genişliğe bakıp tek bir video atar ve bir daha değiştirmez.
+    setVideoSrc(window.innerWidth < 900 ? '/videos/hero1.mp4' : '/videos/hero.mp4')
   }, [])
 
   return (
@@ -51,11 +44,11 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
         {videoSrc && (
           <Box
             component="video"
-            key={videoSrc} // Anahtar ekleyerek React'in video elementini yeniden oluşturmasını ve yeni kaynağı yüklemesini sağlıyoruz
             autoPlay
             muted
             loop
             playsInline
+            preload="auto"
             sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
           >
             <source src={videoSrc} type="video/mp4" />
