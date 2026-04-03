@@ -52,7 +52,8 @@ export default function Navbar({ dict, lang }: NavbarProps) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
     }
-    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -77,7 +78,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           background: scrolled ? 'rgba(255, 255, 255, 0.92)' : 'transparent',
           backdropFilter: scrolled ? 'blur(24px)' : 'none',
           borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : 'none',
-          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: mounted ? 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
           boxShadow: 'none',
         }}
       >
