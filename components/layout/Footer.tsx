@@ -145,7 +145,7 @@ export default function Footer({ dict, lang }: FooterProps) {
               {dict.footer.company}
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-              {(['home', 'about', 'portfolio', 'blog', 'contact'] as const).map((key) => {
+              {(['home', 'about', 'contact'] as const).map((key) => {
                 const hrefMap: Record<string, string> = {
                   home: '', about: '/hakkimizda', portfolio: '/portfolio', blog: '/blog', contact: '/iletisim',
                 }

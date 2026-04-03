@@ -29,7 +29,7 @@ const navItems = [
   { key: 'services', href: '/hizmetler' },
   { key: 'about', href: '/hakkimizda' },
   // { key: 'portfolio', href: '/portfolio' }, // Gizlendi: Zamanı geldiğinde açılacak
-  { key: 'blog', href: '/blog' },
+  // { key: 'blog', href: '/blog' }, // Gizlendi: Zamanı geldiğinde açılacak
   { key: 'contact', href: '/iletisim' },
 ]
 
