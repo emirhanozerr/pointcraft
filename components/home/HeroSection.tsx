@@ -1,5 +1,6 @@
 'use client'
 
+import React, { useState, useEffect } from 'react'
 import { Box, Container, Typography, Button, Chip } from '@mui/material'
 import { motion } from 'framer-motion'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
@@ -19,6 +20,20 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ dict, lang }: HeroSectionProps) {
+  const [videoSrc, setVideoSrc] = useState<string | null>(null)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setVideoSrc(window.innerWidth < 900 ? '/videos/hero1.mp4' : '/videos/hero.mp4')
+    }
+    
+    // Set initial value
+    handleResize()
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <Box
       id="hero-section"
@@ -33,29 +48,19 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
     >
       {/* Video Background */}
       <Box className="hero-video-container" sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden' }}>
-        {/* Desktop Video */}
-        <Box
-          component="video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          sx={{ width: '100%', height: '100%', objectFit: 'cover', display: { xs: 'none', md: 'block' } }}
-        >
-          <source src="/videos/hero.mp4" type="video/mp4" />
-        </Box>
-
-        {/* Mobile Video */}
-        <Box
-          component="video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          sx={{ width: '100%', height: '100%', objectFit: 'cover', display: { xs: 'block', md: 'none' } }}
-        >
-          <source src="/videos/hero1.mp4" type="video/mp4" />
-        </Box>
+        {videoSrc && (
+          <Box
+            component="video"
+            key={videoSrc} // Anahtar ekleyerek React'in video elementini yeniden oluşturmasını ve yeni kaynağı yüklemesini sağlıyoruz
+            autoPlay
+            muted
+            loop
+            playsInline
+            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </Box>
+        )}
 
         {/* 
         <Box sx={{
