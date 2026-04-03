@@ -285,29 +285,6 @@ export default function PortfolioSection({ dict, lang }: PortfolioSectionProps) 
           ))}
         </Grid>
 
-        <Box sx={{ textAlign: 'center', mt: 8 }}>
-          <Link href={`/${lang}/portfolio`} style={{ textDecoration: 'none' }}>
-            <Button
-              endIcon={<ArrowForwardIcon />}
-              sx={{
-                color: '#B88E00', 
-                fontWeight: 800, 
-                fontSize: '1.1rem',
-                px: 4,
-                py: 1.5,
-                borderRadius: '16px',
-                background: 'rgba(246, 188, 13, 0.05)',
-                '&:hover': { 
-                  background: 'rgba(246, 188, 13, 0.1)',
-                  transform: 'translateY(-2px)'
-                },
-                transition: 'all 0.3s ease'
-              }}
-            >
-              {dict.portfolio.viewAll}
-            </Button>
-          </Link>
-        </Box>
       </Container>
     </Box>
   )
