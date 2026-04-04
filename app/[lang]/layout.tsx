@@ -66,6 +66,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         'en': '/en',
       },
     },
+    icons: {
+      icon: [
+        { url: '/favicon.ico' },
+        { url: '/images/logo.png', sizes: '32x32', type: 'image/png' },
+      ],
+      shortcut: '/favicon.ico',
+      apple: '/images/logo.png',
+    },
   }
 }
 
