@@ -26,14 +26,15 @@ interface HeroSectionProps {
 export default function HeroSection({ dict, lang }: HeroSectionProps) {
   const [isMobile, setIsMobile] = useState<boolean | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const mobileVideoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 900)
   }, [])
 
   useEffect(() => {
-    if (isMobile !== false) return
-    const video = videoRef.current
+    const ref = isMobile === false ? videoRef : isMobile === true ? mobileVideoRef : null
+    const video = ref?.current
     if (!video) return
 
     if (Hls.isSupported()) {
@@ -43,7 +44,6 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
       hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}) })
       return () => { hls.destroy() }
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      // Safari native HLS
       video.src = CLOUDFLARE_HLS_URL
       video.addEventListener('loadedmetadata', () => { video.play().catch(() => {}) })
     }
@@ -78,15 +78,14 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
         {isMobile === true && (
           <Box
             component="video"
+            ref={mobileVideoRef}
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
             sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          >
-            <source src="/videos/hero1.mp4" type="video/mp4" />
-          </Box>
+          />
         )}
 
         {/* 
