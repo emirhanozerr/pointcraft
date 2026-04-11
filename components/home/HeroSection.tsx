@@ -1,13 +1,17 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Box, Container, Typography, Button, Chip } from '@mui/material'
 import { motion } from 'framer-motion'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import Link from 'next/link'
+import Hls from 'hls.js'
 import type { Locale } from '@/app/[lang]/dictionaries'
+
+const CLOUDFLARE_HLS_URL =
+  'https://customer-rrzukwoog5mqhgv1.cloudflarestream.com/8440a216f02906fe1a8c94c3a5958554/manifest/video.m3u8'
 
 interface HeroSectionProps {
   dict: {
@@ -20,12 +24,30 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ dict, lang }: HeroSectionProps) {
-  const [videoSrc, setVideoSrc] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    // Sayfa ilk açıldığında tam o anki genişliğe bakıp tek bir video atar ve bir daha değiştirmez.
-    setVideoSrc(window.innerWidth < 900 ? '/videos/hero1.mp4' : '/videos/hero.mp4')
+    setIsMobile(window.innerWidth < 900)
   }, [])
+
+  useEffect(() => {
+    if (isMobile !== false) return
+    const video = videoRef.current
+    if (!video) return
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({ autoStartLoad: true })
+      hls.loadSource(CLOUDFLARE_HLS_URL)
+      hls.attachMedia(video)
+      hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}) })
+      return () => { hls.destroy() }
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari native HLS
+      video.src = CLOUDFLARE_HLS_URL
+      video.addEventListener('loadedmetadata', () => { video.play().catch(() => {}) })
+    }
+  }, [isMobile])
 
   return (
     <Box
@@ -41,7 +63,19 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
     >
       {/* Video Background */}
       <Box className="hero-video-container" sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden' }}>
-        {videoSrc && (
+        {isMobile === false && (
+          <Box
+            component="video"
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        )}
+        {isMobile === true && (
           <Box
             component="video"
             autoPlay
@@ -51,7 +85,7 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
             preload="auto"
             sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
           >
-            <source src={videoSrc} type="video/mp4" />
+            <source src="/videos/hero1.mp4" type="video/mp4" />
           </Box>
         )}
 
