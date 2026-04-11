@@ -1,10 +1,10 @@
 'use client'
 
 import { Box, Container, Typography, Chip, Grid, Button } from '@mui/material'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import Link from 'next/link'
 import { projects, Project } from '@/data/portfolio'
+import { useTilt3D } from '@/lib/hooks/useTilt3D'
 import type { Locale } from '@/app/[lang]/dictionaries'
 
 interface PortfolioSectionProps {
@@ -17,48 +17,16 @@ interface PortfolioSectionProps {
 }
 
 function ProjectCard({ project, index, dict, lang }: { project: Project, index: number, dict: any, lang: Locale }) {
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-
-  const mouseXSpring = useSpring(x)
-  const mouseYSpring = useSpring(y)
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['6deg', '-6deg'])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-6deg', '6deg'])
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
-    const xPct = mouseX / width - 0.5
-    const yPct = mouseY / height - 0.5
-    x.set(xPct)
-    y.set(yPct)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
+  const { tiltStyle, handleMouseMove, handleMouseLeave } = useTilt3D()
   const accentColor = project.glowColor.replace('0.3', '1').replace('rgba', 'rgb')
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -12, scale: 1.01 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
-        height: '100%',
-        willChange: 'transform',
-      }}
+      style={{ ...tiltStyle, height: '100%' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -99,8 +67,6 @@ function ProjectCard({ project, index, dict, lang }: { project: Project, index: 
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              transition: 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
-              '.card-hover:hover &': { transform: 'scale(1.1)' },
             }}
             onError={(e: any) => {
               e.currentTarget.style.display = 'none';
@@ -110,29 +76,23 @@ function ProjectCard({ project, index, dict, lang }: { project: Project, index: 
           {/* Decorative Noise / Pattern */}
           <Box className="noise-texture" sx={{ position: 'absolute', inset: 0, opacity: 0.2, mixBlendMode: 'overlay', pointerEvents: 'none' }} />
           
-          {/* Overlay for better contrast and "View Project" button visibility */}
+          {/* Overlay for better contrast */}
           <Box sx={{
             position: 'absolute',
             inset: 0,
             background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)',
             opacity: 0.4,
-            transition: 'opacity 0.3s ease',
-            '.card-hover:hover &': { opacity: 0.7 },
           }} />
 
-          {/* Hover View Project Button */}
+          {/* View Project Button - Hidden */}
           <Box sx={{
             position: 'absolute',
             inset: 0,
             background: 'rgba(10,10,26,0.3)',
             backdropFilter: 'blur(4px)',
-            display: 'flex',
+            display: 'none',
             alignItems: 'center',
             justifyContent: 'center',
-            opacity: 0,
-            transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-            transform: 'translateZ(60px)',
-            '.card-hover:hover &': { opacity: 1 },
           }}>
             <Button 
               variant="contained" 

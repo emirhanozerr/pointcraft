@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { useState, useLayoutEffect, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { AppBar, Toolbar, Container, Box, Button, IconButton, Drawer, List, ListItem, ListItemButton, ListItemText, useMediaQuery, useTheme } from '@mui/material'
+import Link from 'next/link'
+import { AppBar, Toolbar, Box, Button, IconButton, Drawer, List, ListItem, ListItemButton, ListItemText, useMediaQuery, useTheme } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import CloseIcon from '@mui/icons-material/Close'
 import LanguageIcon from '@mui/icons-material/Language'
@@ -44,7 +44,9 @@ export default function Navbar({ dict, lang }: NavbarProps) {
   const isMobile = mounted ? isMobileQuery : false
   const otherLang = lang === 'tr' ? 'en' : 'tr'
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // This is necessary for hydration mismatch handling in SSR/SSG
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     setMounted(true)
   }, [])
 
@@ -82,10 +84,10 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           boxShadow: 'none',
         }}
       >
-        <Container maxWidth="xl">
-          <Toolbar sx={{ justifyContent: 'space-between', py: 1, pt: { xs: 2.5, md: 1 } }}>
+        <Box sx={{ width: '100%', maxWidth: '1536px', mx: 'auto', px: { xs: 2, md: 0 } }}>
+          <Toolbar sx={{ justifyContent: 'space-between', py: 1, pt: { xs: 2.5, md: 1 }, px: 0 }}>
             {/* Logo */}
-            <Link href={`/${lang}`} style={{ textDecoration: 'none' }}>
+            <Link href={`/${lang}`}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Box
                   component="img"
@@ -103,7 +105,6 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                   <Link
                     key={item.key}
                     href={`/${lang}${item.href}`}
-                    style={{ textDecoration: 'none' }}
                   >
                     <Button
                       sx={{
@@ -136,7 +137,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                 ))}
 
                 {/* Language Switcher */}
-                <Link href={getLocalizedPath(otherLang)} style={{ textDecoration: 'none' }}>
+                <Link href={getLocalizedPath(otherLang)}>
                   <Button
                     startIcon={<LanguageIcon sx={{ fontSize: '18px !important' }} />}
                     sx={{
@@ -159,7 +160,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                 </Link>
 
                 {/* CTA */}
-                <Link href={`/${lang}/iletisim`} style={{ textDecoration: 'none' }}>
+                <Link href={`/${lang}/iletisim`}>
                   <Button
                     variant="contained"
                     sx={{
@@ -187,7 +188,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
             {/* Mobile Menu Button */}
             {isMobile && (
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                <Link href={getLocalizedPath(otherLang)} style={{ textDecoration: 'none' }}>
+                <Link href={getLocalizedPath(otherLang)}>
                   <IconButton sx={{ color: 'rgba(0,0,0,0.7)' }}>
                     <LanguageIcon />
                   </IconButton>
@@ -202,7 +203,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
               </Box>
             )}
           </Toolbar>
-        </Container>
+        </Box>
       </AppBar>
 
       {/* Mobile Drawer */}
@@ -241,7 +242,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                 <Link
                   href={`/${lang}${item.href}`}
                   onClick={() => setMobileOpen(false)}
-                  style={{ textDecoration: 'none', width: '100%' }}
+                  style={{ width: '100%' }}
                 >
                   <ListItemButton
                     sx={{
@@ -271,7 +272,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           </List>
 
           <Box sx={{ mt: 3 }}>
-            <Link href={`/${lang}/iletisim`} onClick={() => setMobileOpen(false)} style={{ textDecoration: 'none', width: '100%' }}>
+            <Link href={`/${lang}/iletisim`} onClick={() => setMobileOpen(false)} style={{ width: '100%' }}>
               <Button
                 variant="contained"
                 fullWidth

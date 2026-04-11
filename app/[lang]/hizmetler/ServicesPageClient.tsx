@@ -54,7 +54,11 @@ export default function ServicesPageClient({ dict, lang }: Props) {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <Box className="service-card-hover" sx={{
+              <Box 
+                id={service.id}
+                className="service-card-hover" 
+                sx={{
+                scrollMarginTop: '150px',
                 mb: 6, borderRadius: '24px', overflow: 'hidden',
                 background: 'rgba(255, 255, 255, 0.7)',
                 border: '1px solid rgba(0,0,0,0.06)',

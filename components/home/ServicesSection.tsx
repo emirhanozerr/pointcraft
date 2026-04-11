@@ -1,9 +1,9 @@
 'use client'
 
 import { Box, Container, Typography, Chip, Grid } from '@mui/material'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { services } from '@/data/services'
-import type { Locale } from '@/app/[lang]/dictionaries'
+import { useTilt3D } from '@/lib/hooks/useTilt3D'
 
 interface ServicesSectionProps {
   dict: {
@@ -13,36 +13,16 @@ interface ServicesSectionProps {
       learnMore: string
     }
   }
-  lang: Locale
 }
 
-function ServiceCard({ service, content, index }: { service: any, content: any, index: number }) {
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
+interface ServiceCardProps {
+  service: typeof services[number]
+  content: { title?: string; description?: string; features?: string[] }
+  index: number
+}
 
-  const mouseXSpring = useSpring(x)
-  const mouseYSpring = useSpring(y)
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['10deg', '-10deg'])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-10deg', '10deg'])
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
-    const xPct = mouseX / width - 0.5
-    const yPct = mouseY / height - 0.5
-    x.set(xPct)
-    y.set(yPct)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
+function ServiceCard({ service, content, index }: ServiceCardProps) {
+  const { tiltStyle, handleMouseMove, handleMouseLeave } = useTilt3D({ maxDeg: 10 })
   const Icon = service.icon
   const accentColor = service.glowColor.replace('0.3', '1').replace('rgba', 'rgb')
 
@@ -50,16 +30,9 @@ function ServiceCard({ service, content, index }: { service: any, content: any, 
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -16, scale: 1.02 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
-        height: '100%',
-        willChange: 'transform',
-      }}
+      style={{ ...tiltStyle, height: '100%' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -105,8 +78,8 @@ function ServiceCard({ service, content, index }: { service: any, content: any, 
               transition: 'all 0.6s ease',
               '.card-hover:hover &': { transform: 'scale(1.1)' }
             }}
-            onLoad={(e: any) => e.currentTarget.style.opacity = '0.7'}
-            onError={(e: any) => e.currentTarget.style.display = 'none'}
+            onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => { (e.target as HTMLImageElement).style.opacity = '0.7' }}
+            onError={(e: React.SyntheticEvent<HTMLImageElement>) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
 
           {/* Gradient Overlay for text readability */}
@@ -191,7 +164,7 @@ function ServiceCard({ service, content, index }: { service: any, content: any, 
           position: 'relative',
           zIndex: 3,
         }}>
-          {content?.features.map((feature: string, i: number) => (
+          {content?.features?.map((feature: string, i: number) => (
             <Chip
               key={i}
               label={feature}
@@ -218,7 +191,7 @@ function ServiceCard({ service, content, index }: { service: any, content: any, 
   )
 }
 
-export default function ServicesSection({ dict, lang }: ServicesSectionProps) {
+export default function ServicesSection({ dict }: ServicesSectionProps) {
   return (
     <Box component="section" id="services-section" className="section-padding" sx={{ position: 'relative', overflow: 'hidden', background: '#F8F9FA' }}>
       {/* Background Decorative Elements */}

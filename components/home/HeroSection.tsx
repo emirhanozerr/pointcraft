@@ -1,17 +1,15 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
-import { Box, Container, Typography, Button, Chip } from '@mui/material'
+import React from 'react'
+import { Box, Container, Typography, Button, useMediaQuery, useTheme } from '@mui/material'
 import { motion } from 'framer-motion'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import Link from 'next/link'
-import Hls from 'hls.js'
 import type { Locale } from '@/app/[lang]/dictionaries'
 
-const CLOUDFLARE_HLS_URL =
-  'https://customer-rrzukwoog5mqhgv1.cloudflarestream.com/8440a216f02906fe1a8c94c3a5958554/manifest/video.m3u8'
+const HERO_VIDEO_URL = '/videos/orginal_banner.mp4'
+const HERO_MOBILE_VIDEO_URL = '/videos/orijinal_mobile_banner.mp4'
 
 interface HeroSectionProps {
   dict: {
@@ -24,30 +22,11 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ dict, lang }: HeroSectionProps) {
-  const [isMobile, setIsMobile] = useState<boolean | null>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const mobileVideoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 900)
-  }, [])
-
-  useEffect(() => {
-    const ref = isMobile === false ? videoRef : isMobile === true ? mobileVideoRef : null
-    const video = ref?.current
-    if (!video) return
-
-    if (Hls.isSupported()) {
-      const hls = new Hls({ autoStartLoad: true })
-      hls.loadSource(CLOUDFLARE_HLS_URL)
-      hls.attachMedia(video)
-      hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}) })
-      return () => { hls.destroy() }
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = CLOUDFLARE_HLS_URL
-      video.addEventListener('loadedmetadata', () => { video.play().catch(() => {}) })
-    }
-  }, [isMobile])
+  const [videoHasError, setVideoHasError] = React.useState(false)
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  
+  const videoUrl = isMobile ? HERO_MOBILE_VIDEO_URL : HERO_VIDEO_URL
 
   return (
     <Box
@@ -63,44 +42,21 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
     >
       {/* Video Background */}
       <Box className="hero-video-container" sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden' }}>
-        {isMobile === false && (
+        {!videoHasError && (
           <Box
             component="video"
-            ref={videoRef}
+            src={videoUrl}
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
-            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        )}
-        {isMobile === true && (
-          <Box
-            component="video"
-            ref={mobileVideoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
+            preload="none"
+            onError={() => setVideoHasError(true)}
             sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         )}
 
-        {/* 
-        <Box sx={{
-          position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-          background: {
-            xs: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.45) 55%, rgba(255,255,255,0.15) 100%), radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0.15) 100%)',
-            md: 'radial-gradient(ellipse at 0% 40%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 35%, transparent 70%), radial-gradient(ellipse at 85% -10%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.3) 30%, transparent 50%), radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.8) 0%, transparent 35%), radial-gradient(ellipse at 70% 60%, rgba(0,212,170,0.15) 0%, transparent 60%)'
-          }
-        }} /> 
-        */}
       </Box>
-
-      {/* Overlay */}
-      {/* <Box className="hero-overlay" /> */}
 
       {/* Floating Decorative Elements */}
       <Box sx={{ position: 'absolute', top: '15%', left: '8%', zIndex: 2, opacity: 0.15 }}>
@@ -134,9 +90,9 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', mt: { xs: '45vh', md: '55vh' } }}>
 
             {/* CTA Buttons */}
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2, justifyContent: 'center', width: { xs: '100%', md: 'auto' }, px: { xs: 2, md: 0 } }}>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <Link href={`/${lang}/iletisim`} style={{ textDecoration: 'none' }}>
+                <a href={`/${lang}/iletisim`}>
                   <Button
                     variant="contained"
                     size="large"
@@ -150,6 +106,7 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
                       px: 4,
                       fontSize: '1rem',
                       fontWeight: 700,
+                      width: { xs: '100%', md: 'auto' },
                       '&:hover': {
                         background: 'linear-gradient(135deg, #D9A70F, #F6BC0D)',
                         boxShadow: '0 12px 40px rgba(246, 188, 13, 0.5)',
@@ -158,11 +115,11 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
                   >
                     {dict.hero.cta1}
                   </Button>
-                </Link>
+                </a>
               </motion.div>
 
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <Link href={`/${lang}/hizmetler`} style={{ textDecoration: 'none' }}>
+                <a href={`/${lang}/hizmetler`}>
                   <Button
                     variant="outlined"
                     size="large"
@@ -174,7 +131,8 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
                       py: 1.8,
                       px: 4,
                       fontSize: '1rem',
-                      fontWeight: 600,
+                      fontWeight: 700,
+                      width: { xs: '100%', md: 'auto' },
                       '&:hover': {
                         borderColor: 'rgba(246, 188, 13, 0.5)',
                         background: 'rgba(246, 188, 13, 0.08)',
@@ -183,7 +141,7 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
                   >
                     {dict.hero.cta2}
                   </Button>
-                </Link>
+                </a>
               </motion.div>
             </Box>
           </Box>

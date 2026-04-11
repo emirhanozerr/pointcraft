@@ -17,7 +17,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   return (
     <>
       <HeroSection dict={dict} lang={lang as Locale} />
-      <ServicesSection dict={dict} lang={lang as Locale} />
+      <ServicesSection dict={dict} />
       <StatsSection dict={dict} />
       <PortfolioSection dict={dict} lang={lang as Locale} />
       <TestimonialsSection dict={dict} lang={lang as Locale} />

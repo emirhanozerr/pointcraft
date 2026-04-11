@@ -55,9 +55,9 @@ export default function Footer({ dict, lang }: FooterProps) {
         setStatus('idle')
         setMessage('')
       }, 3000)
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus('error')
-      setMessage(err.message || 'Bir hata oluştu')
+      setMessage(err instanceof Error ? err.message : 'Bir hata oluştu')
     }
   }
 
@@ -83,7 +83,7 @@ export default function Footer({ dict, lang }: FooterProps) {
         <Grid container spacing={6}>
           {/* Brand Column */}
           <Grid size={{ xs: 12, md: 4 }} sx={{ textAlign: { xs: 'center', md: 'left' }, display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' } }}>
-            <Link href={`/${lang}`} style={{ textDecoration: 'none' }}>
+            <Link href={`/${lang}`}>
               <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' }, alignItems: 'center', mb: 2 }}>
                 <Box
                   component="img"
@@ -127,7 +127,7 @@ export default function Footer({ dict, lang }: FooterProps) {
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
               {serviceKeys.map((key) => (
-                <Link key={key} href={`/${lang}/hizmetler`} style={{ textDecoration: 'none' }}>
+                <Link key={key} href={`/${lang}/hizmetler#${key}`} style={{ textDecoration: 'none' }}>
                   <Typography sx={{
                     color: 'rgba(0,0,0,0.6)', fontSize: '0.88rem',
                     transition: 'all 0.2s', '&:hover': { color: '#F6BC0D', pl: 0.5 },
@@ -142,7 +142,7 @@ export default function Footer({ dict, lang }: FooterProps) {
           {/* Company Column */}
           <Grid size={{ xs: 6, sm: 3, md: 2 }} sx={{ textAlign: { xs: 'center', md: 'left' }, display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' } }}>
             <Typography sx={{ fontWeight: 700, fontSize: '0.95rem', mb: 2.5, color: '#1A1A1A' }}>
-              {dict.footer.company}
+              Hızlı Erişim
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
               {(['home', 'about', 'contact'] as const).map((key) => {
@@ -153,7 +153,7 @@ export default function Footer({ dict, lang }: FooterProps) {
                   <Link key={key} href={`/${lang}${hrefMap[key]}`} style={{ textDecoration: 'none' }}>
                     <Typography sx={{
                       color: 'rgba(0,0,0,0.6)', fontSize: '0.88rem',
-                      transition: 'all 0.2s', '&:hover': { color: '#6C3CE1', pl: 0.5 },
+                      transition: 'all 0.2s', '&:hover': { color: '#F6BC0D', pl: 0.5 },
                     }}>
                       {dict.nav[key]}
                     </Typography>
@@ -225,14 +225,15 @@ export default function Footer({ dict, lang }: FooterProps) {
             {dict.footer.copyright}
           </Typography>
           <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', flexWrap: 'wrap' }}>
-            {[dict.footer.privacy, dict.footer.terms, dict.footer.cookies].map((item, i) => (
-              <Typography key={i} component="a" href="#" sx={{
-                color: 'rgba(0,0,0,0.5)', fontSize: '0.82rem', textDecoration: 'none',
+            <Link href={`/${lang}/politikalar`} style={{ textDecoration: 'none' }}>
+              <Typography sx={{
+                color: 'rgba(0,0,0,0.5)', fontSize: '0.82rem',
+                transition: 'all 0.2s',
                 '&:hover': { color: '#F6BC0D' },
               }}>
-                {item}
+               Gizlilik, KVKK ve Çerez Politikası
               </Typography>
-            ))}
+            </Link>
           </Box>
         </Box>
       </Container>

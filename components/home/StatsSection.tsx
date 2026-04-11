@@ -64,11 +64,11 @@ export default function StatsSection({ dict }: StatsSectionProps) {
                       display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 2,
                       boxShadow: `0 8px 25px ${stat.gradient.includes('F6BC0D') ? 'rgba(246, 188, 13, 0.3)' : stat.gradient.includes('00D4AA') ? 'rgba(0,212,170,0.3)' : stat.gradient.includes('FF6B35') ? 'rgba(255,107,53,0.3)' : 'rgba(233,30,140,0.3)'}`,
                     }}>
-                      <Icon sx={{ fontSize: 28, color: stat.gradient.includes('F2BB13') ? '#000' : '#fff' }} />
+                      <Icon sx={{ fontSize: 28, color: stat.gradient.includes('F6BC0D') ? '#000' : '#fff' }} />
                     </Box>
                     <Typography sx={{
                       fontSize: { xs: '2.5rem', md: '3rem' }, fontWeight: 800,
-                      fontFamily: '"Outfit"', lineHeight: 1,
+                      lineHeight: 1,
                     }}>
                       <AnimatedCounter target={stat.value} />
                       {stat.suffix}

@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function AdminPage() {
   return (
-    <main style={{ padding: '40px 20px', minHeight: '100vh', backgroundColor: '#f4f6f8' }}>
+    <div style={{ padding: '40px 20px', minHeight: '100vh', backgroundColor: '#f4f6f8' }}>
       <AdminPanelClient />
-    </main>
+    </div>
   )
 }

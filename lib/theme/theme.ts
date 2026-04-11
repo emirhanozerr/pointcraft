@@ -28,31 +28,25 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Inter", "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    fontFamily: 'var(--font-noto-serif), "Noto Serif", serif',
     h1: {
-      fontFamily: '"Outfit", "Inter", sans-serif',
       fontWeight: 800,
       letterSpacing: '-0.02em',
     },
     h2: {
-      fontFamily: '"Outfit", "Inter", sans-serif',
       fontWeight: 700,
       letterSpacing: '-0.01em',
     },
     h3: {
-      fontFamily: '"Outfit", "Inter", sans-serif',
       fontWeight: 700,
     },
     h4: {
-      fontFamily: '"Outfit", "Inter", sans-serif',
       fontWeight: 600,
     },
     h5: {
-      fontFamily: '"Outfit", "Inter", sans-serif',
       fontWeight: 600,
     },
     h6: {
-      fontFamily: '"Outfit", "Inter", sans-serif',
       fontWeight: 600,
     },
     button: {
@@ -64,6 +58,14 @@ const theme = createTheme({
     borderRadius: 12,
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        'a': {
+          textDecoration: 'none',
+          color: 'inherit',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

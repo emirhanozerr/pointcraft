@@ -6,7 +6,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import SupportAgentIcon from '@mui/icons-material/SupportAgent'
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
 import VerifiedIcon from '@mui/icons-material/Verified'
-import Link from 'next/link'
 import type { Locale } from '@/app/[lang]/dictionaries'
 
 interface ContactCTAProps {
@@ -65,7 +64,7 @@ export default function ContactCTA({ dict, lang }: ContactCTAProps) {
             </Typography>
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link href={`/${lang}/iletisim`} style={{ textDecoration: 'none' }}>
+              <a href={`/${lang}/iletisim`}>
                 <Button
                   variant="contained"
                   size="large"
@@ -84,7 +83,7 @@ export default function ContactCTA({ dict, lang }: ContactCTAProps) {
                 >
                   {dict.cta.button}
                 </Button>
-              </Link>
+              </a>
             </motion.div>
 
             {/* Stats row */}

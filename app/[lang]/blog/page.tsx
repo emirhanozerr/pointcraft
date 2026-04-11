@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params
   return {
-    title: lang === 'tr' ? 'Blog' : 'Blog',
+    title: 'Blog',
     description: lang === 'tr'
       ? 'Dijital pazarlama, SEO, sosyal medya ve teknoloji hakkında güncel yazılar.'
       : 'Latest articles about digital marketing, SEO, social media and technology.',
