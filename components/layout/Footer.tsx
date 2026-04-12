@@ -16,7 +16,7 @@ interface FooterProps {
     footer: {
       description: string; services: string; company: string; legal: string;
       privacy: string; terms: string; cookies: string; copyright: string
-      newsletter: { title: string; description: string; placeholder: string; button: string }
+      newsletter: { title: string; placeholder: string; button: string }
     }
   }
   lang: Locale
