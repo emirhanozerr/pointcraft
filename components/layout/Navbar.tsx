@@ -161,7 +161,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                 </Link>
 
                 {/* CTA */}
-                <Link href={`/${lang}/iletisim`}>
+                <Link href={`/${lang}/iletisim`} prefetch={false}>
                   <Button
                     variant="contained"
                     sx={{
@@ -189,7 +189,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
             {/* Mobile Menu Button */}
             {isMobile && (
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                <Link href={getLocalizedPath(otherLang)}>
+                <Link href={getLocalizedPath(otherLang)} prefetch={false}>
                   <IconButton sx={{ color: 'rgba(0,0,0,0.7)' }}>
                     <LanguageIcon />
                   </IconButton>
@@ -242,6 +242,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
               <ListItem key={item.key} disablePadding>
                 <Link
                   href={`/${lang}${item.href}`}
+                  prefetch={false}
                   onClick={() => setMobileOpen(false)}
                   style={{ width: '100%' }}
                 >
@@ -273,7 +274,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           </List>
 
           <Box sx={{ mt: 3 }}>
-            <Link href={`/${lang}/iletisim`} onClick={() => setMobileOpen(false)} style={{ width: '100%' }}>
+            <Link href={`/${lang}/iletisim`} prefetch={false} onClick={() => setMobileOpen(false)} style={{ width: '100%' }}>
               <Button
                 variant="contained"
                 fullWidth
