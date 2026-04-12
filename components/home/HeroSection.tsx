@@ -9,7 +9,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import type { Locale } from '@/app/[lang]/dictionaries'
 
-const HERO_VIDEO_URL = '/videos/orginal_banner.mp4'
+const HERO_VIDEO_URL = '/videos/original_banner.mp4'
 const HERO_MOBILE_VIDEO_URL = '/videos/orijinal_mobile_banner.mp4'
 
 interface HeroSectionProps {
