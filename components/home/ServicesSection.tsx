@@ -69,8 +69,7 @@ function ServiceCard({ service, content, index }: ServiceCardProps) {
           <Box
             component="img"
             src={service.image}
-            alt={content?.title}
-            sx={{
+            alt={content?.title}            loading="lazy"            sx={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',

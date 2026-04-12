@@ -81,6 +81,7 @@ export default function ServicesPageClient({ dict, lang }: Props) {
                         component="img"
                         src={service.image}
                         alt={content?.title}
+                        loading="lazy"
                         sx={{
                           position: 'absolute',
                           inset: 0,

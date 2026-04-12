@@ -60,8 +60,7 @@ function ProjectCard({ project, index, dict, lang }: { project: Project, index: 
           <Box 
             component="img"
             src={project.image}
-            alt={lang === 'tr' ? project.titleTr : project.titleEn}
-            sx={{
+            alt={lang === 'tr' ? project.titleTr : project.titleEn}            loading="lazy"            sx={{
               position: 'absolute',
               inset: 0,
               width: '100%',
