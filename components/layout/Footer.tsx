@@ -83,7 +83,7 @@ export default function Footer({ dict, lang }: FooterProps) {
         <Grid container spacing={6}>
           {/* Brand Column */}
           <Grid size={{ xs: 12, md: 4 }} sx={{ textAlign: { xs: 'center', md: 'left' }, display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' } }}>
-            <Link href={`/${lang}`}>
+            <Link href={`/${lang}`} prefetch={false}>
               <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' }, alignItems: 'center', mb: 2 }}>
                 <Box
                   component="img"
@@ -127,7 +127,7 @@ export default function Footer({ dict, lang }: FooterProps) {
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
               {serviceKeys.map((key) => (
-                <Link key={key} href={`/${lang}/hizmetler#${key}`} style={{ textDecoration: 'none' }}>
+                <Link key={key} href={`/${lang}/hizmetler#${key}`} prefetch={false} style={{ textDecoration: 'none' }}>
                   <Typography sx={{
                     color: 'rgba(0,0,0,0.6)', fontSize: '0.88rem',
                     transition: 'all 0.2s', '&:hover': { color: '#F6BC0D', pl: 0.5 },
@@ -150,7 +150,7 @@ export default function Footer({ dict, lang }: FooterProps) {
                   home: '', about: '/hakkimizda', portfolio: '/portfolio', blog: '/blog', contact: '/iletisim',
                 }
                 return (
-                  <Link key={key} href={`/${lang}${hrefMap[key]}`} style={{ textDecoration: 'none' }}>
+                  <Link key={key} href={`/${lang}${hrefMap[key]}`} prefetch={false} style={{ textDecoration: 'none' }}>
                     <Typography sx={{
                       color: 'rgba(0,0,0,0.6)', fontSize: '0.88rem',
                       transition: 'all 0.2s', '&:hover': { color: '#F6BC0D', pl: 0.5 },
@@ -225,7 +225,7 @@ export default function Footer({ dict, lang }: FooterProps) {
             {dict.footer.copyright}
           </Typography>
           <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href={`/${lang}/politikalar`} style={{ textDecoration: 'none' }}>
+            <Link href={`/${lang}/politikalar`} prefetch={false} style={{ textDecoration: 'none' }}>
               <Typography sx={{
                 color: 'rgba(0,0,0,0.5)', fontSize: '0.82rem',
                 transition: 'all 0.2s',

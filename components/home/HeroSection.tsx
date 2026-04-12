@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { Box, Container, Typography, Button, useMediaQuery, useTheme } from '@mui/material'
 import { motion } from 'framer-motion'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
@@ -92,7 +93,7 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
             {/* CTA Buttons */}
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2, justifyContent: 'center', width: { xs: '100%', md: 'auto' }, px: { xs: 2, md: 0 } }}>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <a href={`/${lang}/iletisim`}>
+                <Link href={`/${lang}/iletisim`} prefetch={false}>
                   <Button
                     variant="contained"
                     size="large"
@@ -115,11 +116,11 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
                   >
                     {dict.hero.cta1}
                   </Button>
-                </a>
+                </Link>
               </motion.div>
 
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <a href={`/${lang}/hizmetler`}>
+                <Link href={`/${lang}/hizmetler`} prefetch={false}>
                   <Button
                     variant="outlined"
                     size="large"
@@ -141,7 +142,7 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
                   >
                     {dict.hero.cta2}
                   </Button>
-                </a>
+                </Link>
               </motion.div>
             </Box>
           </Box>

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Box, Container, Typography, Button } from '@mui/material'
 import { motion } from 'framer-motion'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
@@ -64,7 +65,7 @@ export default function ContactCTA({ dict, lang }: ContactCTAProps) {
             </Typography>
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <a href={`/${lang}/iletisim`}>
+              <Link href={`/${lang}/iletisim`} prefetch={false}>
                 <Button
                   variant="contained"
                   size="large"
@@ -83,7 +84,7 @@ export default function ContactCTA({ dict, lang }: ContactCTAProps) {
                 >
                   {dict.cta.button}
                 </Button>
-              </a>
+              </Link>
             </motion.div>
 
             {/* Stats row */}

@@ -87,7 +87,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
         <Box sx={{ width: '100%', maxWidth: '1536px', mx: 'auto', px: { xs: 2, md: 0 } }}>
           <Toolbar sx={{ justifyContent: 'space-between', py: 1, pt: { xs: 2.5, md: 1 }, px: 0 }}>
             {/* Logo */}
-            <Link href={`/${lang}`}>
+            <Link href={`/${lang}`} prefetch={false}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Box
                   component="img"
@@ -105,6 +105,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                   <Link
                     key={item.key}
                     href={`/${lang}${item.href}`}
+                    prefetch={false}
                   >
                     <Button
                       sx={{
@@ -137,7 +138,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                 ))}
 
                 {/* Language Switcher */}
-                <Link href={getLocalizedPath(otherLang)}>
+                <Link href={getLocalizedPath(otherLang)} prefetch={false}>
                   <Button
                     startIcon={<LanguageIcon sx={{ fontSize: '18px !important' }} />}
                     sx={{
