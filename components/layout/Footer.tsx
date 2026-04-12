@@ -168,9 +168,6 @@ export default function Footer({ dict, lang }: FooterProps) {
             <Typography sx={{ fontWeight: 700, fontSize: '0.95rem', mb: 1, color: '#1A1A1A' }}>
               {dict.footer.newsletter.title}
             </Typography>
-            <Typography sx={{ color: 'rgba(0,0,0,0.6)', fontSize: '0.88rem', mb: 2.5 }}>
-              {dict.footer.newsletter.description}
-            </Typography>
             <Box component="form" onSubmit={handleSubscribe} sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '100%' }}>
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <TextField
