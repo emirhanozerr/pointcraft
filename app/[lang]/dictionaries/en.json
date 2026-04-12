@@ -211,7 +211,6 @@
     "cookies": "Cookie Policy",
     "newsletter": {
       "title": "Subscribe to Our Newsletter",
-      "description": "",
       "placeholder": "Enter your email address",
       "button": "Subscribe"
     },
