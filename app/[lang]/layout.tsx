@@ -6,6 +6,7 @@ import ThemeProvider from '@/components/providers/ThemeProvider'
 import StoreProvider from '@/components/providers/StoreProvider'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import WhatsAppButton from '@/components/layout/WhatsAppButton'
 import { getDictionary, hasLocale, type Locale } from './dictionaries'
 
 const notoSerif = Noto_Serif({
@@ -97,6 +98,7 @@ export default async function RootLayout({
             <Navbar dict={dict} lang={lang as Locale} />
             <main style={{ flex: 1 }}>{children}</main>
             <Footer dict={dict} lang={lang as Locale} />
+            <WhatsAppButton />
           </ThemeProvider>
         </StoreProvider>
       </body>
