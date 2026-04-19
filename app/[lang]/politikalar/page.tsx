@@ -67,14 +67,14 @@ export default async function PolitikalarPage({ params }: Props) {
           </Box>
 
           <Typography component="p">
-            Haklarınızı kullanmak için bizimle pointcrafttr@gmail.com üzerinden iletişime geçebilirsiniz.
+            Haklarınızı kullanmak için bizimle contact@pointcraft.com.tr  üzerinden iletişime geçebilirsiniz.
           </Typography>
 
           <Typography component="h2">
             İletişim
           </Typography>
           <Typography component="p">
-            Siteyi kullanmaya devam ettiğiniz takdirde, gizlilik ve kişisel verilerin işlenmesi politikasını kabul etmiş sayılacaksınız. Daha ayrıntılı bilgi için bizimle pointcrafttr@gmail.com üzerinden iletişime geçebilirsiniz.
+            Siteyi kullanmaya devam ettiğiniz takdirde, gizlilik ve kişisel verilerin işlenmesi politikasını kabul etmiş sayılacaksınız. Daha ayrıntılı bilgi için bizimle contact@pointcraft.com.tr üzerinden iletişime geçebilirsiniz.
           </Typography>
 
           <Typography component="h2">
@@ -100,7 +100,7 @@ export default async function PolitikalarPage({ params }: Props) {
             Biz, Pointcraft olarak güvenliğinize önem veriyor ve bu Çerez Politikası ile sizleri, web sitemizde hangi çerezleri kullandığımız ve çerez ayarlarınızı nasıl değiştirebileceğiniz konusunda bilgilendirmeyi hedefliyoruz.
           </Typography>
           <Typography component="p">
-            Sorularınız için bizimle pointcrafttr@gmail.com üzerinden iletişime geçebilirsiniz.
+            Sorularınız için bizimle contact@pointcraft.com.tr üzerinden iletişime geçebilirsiniz.
           </Typography>
         </Box>
       </Container>
