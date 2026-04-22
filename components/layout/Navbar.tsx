@@ -40,7 +40,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
   const pathname = usePathname()
   const theme = useTheme()
   const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'))
-  // On the server and before hydration, always render desktop nav to avoid mismatch
+  // Use the query result directly – visibility is controlled via opacity below
   const isMobile = mounted ? isMobileQuery : false
   const otherLang = lang === 'tr' ? 'en' : 'tr'
 
@@ -82,6 +82,9 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : 'none',
           transition: mounted ? 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
           boxShadow: 'none',
+          // Hide navbar content until client hydration completes to prevent
+          // the desktop layout from flashing on mobile devices
+          opacity: mounted ? 1 : 0,
         }}
       >
         <Box sx={{ width: '100%', maxWidth: '1536px', mx: 'auto', px: { xs: 2, md: 0 } }}>

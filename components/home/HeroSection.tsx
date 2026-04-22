@@ -24,10 +24,18 @@ interface HeroSectionProps {
 
 export default function HeroSection({ dict, lang }: HeroSectionProps) {
   const [videoHasError, setVideoHasError] = React.useState(false)
+  const [mounted, setMounted] = React.useState(false)
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'))
+  // Before hydration, default to false to avoid SSR mismatch; visibility is
+  // controlled via opacity so the user never sees the wrong layout.
+  const isMobile = mounted ? isMobileQuery : false
   
   const videoUrl = isMobile ? HERO_MOBILE_VIDEO_URL : HERO_VIDEO_URL
+
+  React.useLayoutEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <Box
@@ -39,6 +47,9 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
         display: 'flex',
         alignItems: 'center',
         overflow: 'hidden',
+        // Hide until client hydration completes to prevent desktop layout flash
+        opacity: mounted ? 1 : 0,
+        transition: 'opacity 0.15s ease-in',
       }}
     >
       {/* Video Background */}
