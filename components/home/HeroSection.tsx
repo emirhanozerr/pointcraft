@@ -7,10 +7,12 @@ import { motion } from 'framer-motion'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import Hls from 'hls.js'
 import type { Locale } from '@/app/[lang]/dictionaries'
 
-const HERO_VIDEO_URL = '/videos/original_banner.mp4'
-const HERO_MOBILE_VIDEO_URL = '/videos/orijinal_mobile_banner.mp4'
+// Cloudflare Stream CDN - HLS manifest URLs
+const CLOUDFLARE_DESKTOP_HLS_URL = 'https://customer-rrzukwoog5mqhgv1.cloudflarestream.com/8440a216f02906fe1a8c94c3a5958554/manifest/video.m3u8'
+const CLOUDFLARE_MOBILE_HLS_URL = 'https://customer-rrzukwoog5mqhgv1.cloudflarestream.com/35e22e6dff2a5db2175dd689cbfdea1a/manifest/video.m3u8'
 
 interface HeroSectionProps {
   dict: {
@@ -25,17 +27,65 @@ interface HeroSectionProps {
 export default function HeroSection({ dict, lang }: HeroSectionProps) {
   const [videoHasError, setVideoHasError] = React.useState(false)
   const [mounted, setMounted] = React.useState(false)
+  const videoRef = React.useRef<HTMLVideoElement>(null)
   const theme = useTheme()
   const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'))
   // Before hydration, default to false to avoid SSR mismatch; visibility is
   // controlled via opacity so the user never sees the wrong layout.
   const isMobile = mounted ? isMobileQuery : false
-  
-  const videoUrl = isMobile ? HERO_MOBILE_VIDEO_URL : HERO_VIDEO_URL
+
+  // Select the correct CDN URL based on viewport
+  const hlsUrl = isMobile ? CLOUDFLARE_MOBILE_HLS_URL : CLOUDFLARE_DESKTOP_HLS_URL
 
   React.useLayoutEffect(() => {
     setMounted(true)
   }, [])
+
+  // Initialize HLS.js for Cloudflare Stream playback
+  // Re-runs when hlsUrl changes (desktop ↔ mobile) to load the correct video
+  React.useEffect(() => {
+    if (!mounted) return
+    const video = videoRef.current
+    if (!video || videoHasError) return
+
+    let hls: Hls | null = null
+
+    if (Hls.isSupported()) {
+      hls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: false,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
+      })
+      hls.loadSource(hlsUrl)
+      hls.attachMedia(video)
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => {
+          // Autoplay may be blocked, silently handle
+        })
+      })
+      hls.on(Hls.Events.ERROR, (_event, data) => {
+        if (data.fatal) {
+          setVideoHasError(true)
+        }
+      })
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari has native HLS support
+      video.src = hlsUrl
+      video.addEventListener('loadedmetadata', () => {
+        video.play().catch(() => {})
+      })
+      video.addEventListener('error', () => setVideoHasError(true))
+    } else {
+      setVideoHasError(true)
+    }
+
+    return () => {
+      if (hls) {
+        hls.destroy()
+      }
+    }
+  }, [hlsUrl, mounted, videoHasError])
 
   return (
     <Box
@@ -52,17 +102,16 @@ export default function HeroSection({ dict, lang }: HeroSectionProps) {
         transition: 'opacity 0.15s ease-in',
       }}
     >
-      {/* Video Background */}
+      {/* Video Background - Cloudflare Stream CDN */}
       <Box className="hero-video-container" sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden' }}>
         {!videoHasError && (
           <Box
             component="video"
-            src={videoUrl}
+            ref={videoRef}
             autoPlay
             muted
             loop
             playsInline
-            preload="none"
             onError={() => setVideoHasError(true)}
             sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
