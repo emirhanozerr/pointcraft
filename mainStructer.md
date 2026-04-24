@@ -1,0 +1,11 @@
+- arrow functionlar kullanılacak
+- Loading componenti olacak ve sayfalar buna sarılı olacak data gelene kadar sketon kullanılabilir Loading componenti içinde 
+- react hook form kullanılacak select ve inputlar ayrı birer componentte olacak mesela CoreSelect component gibi
+- axios ve react query kullanılacak 
+- layout daha güzel yazılacak 
+- klasör yapıları daha profesyonel olacak
+- render konusunda çok dikkat edilecek
+- animasyonlar sayfayı yavaşlatmayacak ona göre bir yapı kurulacak
+-  senior architect developer gibi mimari kurulup kod yazılacak en clean ve anlaşılır bir kod yazılacak
+- sistemi en verimli haline getir
+- çok token tüketme

@@ -7,6 +7,9 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import SendIcon from '@mui/icons-material/Send'
+import { useForm } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
+import api from '@/lib/axios'
 import type { Locale } from '@/app/[lang]/dictionaries'
 
 interface FooterProps {
@@ -24,42 +27,20 @@ interface FooterProps {
 
 export default function Footer({ dict, lang }: FooterProps) {
   const serviceKeys = ['socialMedia', 'aiVideo', 'software', 'videoProduction', 'seo', 'ads'] as const
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const { register, handleSubmit, reset } = useForm({ defaultValues: { email: '' } })
   const [message, setMessage] = useState('')
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setStatus('loading')
-    try {
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Bir hata oluştu')
-      }
-
-      setStatus('success')
+  const { mutate, status } = useMutation({
+    mutationFn: (data: { email: string }) => api.post('/newsletter', data).then(res => res.data),
+    onSuccess: (data) => {
       setMessage(data.message || 'Başarıyla abone oldunuz!')
-      setEmail('')
-      
-      // 3 saniye sonra mesajı gizle
-      setTimeout(() => {
-        setStatus('idle')
-        setMessage('')
-      }, 3000)
-    } catch (err: unknown) {
-      setStatus('error')
-      setMessage(err instanceof Error ? err.message : 'Bir hata oluştu')
+      reset()
+      setTimeout(() => setMessage(''), 3000)
+    },
+    onError: (err: any) => {
+      setMessage(err.response?.data?.error || err.message || 'Bir hata oluştu')
     }
-  }
+  })
 
   return (
     <Box
@@ -168,16 +149,15 @@ export default function Footer({ dict, lang }: FooterProps) {
             <Typography sx={{ fontWeight: 700, fontSize: '0.95rem', mb: 1, color: '#1A1A1A' }}>
               {dict.footer.newsletter.title}
             </Typography>
-            <Box component="form" onSubmit={handleSubscribe} sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '100%' }}>
+            <Box component="form" onSubmit={handleSubmit((data) => mutate(data))} sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '100%' }}>
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <TextField
                   placeholder={dict.footer.newsletter.placeholder}
                   type="email"
                   size="small"
                   fullWidth
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={status === 'loading'}
+                  {...register('email', { required: true })}
+                  disabled={status === 'pending'}
                   required
                   sx={{
                     '& .MuiOutlinedInput-root': {
@@ -194,7 +174,7 @@ export default function Footer({ dict, lang }: FooterProps) {
                 <Button
                   type="submit"
                   variant="contained"
-                  disabled={status === 'loading'}
+                  disabled={status === 'pending'}
                   sx={{
                     minWidth: 48, borderRadius: '10px',
                     background: 'linear-gradient(135deg, #F6BC0D, #FDCB35)',
@@ -203,7 +183,7 @@ export default function Footer({ dict, lang }: FooterProps) {
                     '&.Mui-disabled': { background: '#e0e0e0' }
                   }}
                 >
-                  {status === 'loading' ? <CircularProgress size={18} color="inherit" /> : <SendIcon sx={{ fontSize: 18 }} />}
+                  {status === 'pending' ? <CircularProgress size={18} color="inherit" /> : <SendIcon sx={{ fontSize: 18 }} />}
                 </Button>
               </Box>
               {message && (

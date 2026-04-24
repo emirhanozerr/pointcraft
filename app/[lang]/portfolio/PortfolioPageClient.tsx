@@ -4,8 +4,7 @@ import { Box, Container, Typography, Chip, Grid, Button } from '@mui/material'
 import { motion, AnimatePresence } from 'framer-motion'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { projects } from '@/data/portfolio'
-import { useAppSelector, useAppDispatch } from '@/lib/store/hooks'
-import { setActiveFilter } from '@/lib/store/slices/portfolioSlice'
+import { useState, useMemo } from 'react'
 import type { Locale } from '@/app/[lang]/dictionaries'
 
 interface Props {
@@ -22,12 +21,13 @@ interface Props {
 const filterKeys = ['all', 'socialMedia', 'software', 'video', 'seo', 'ads']
 
 export default function PortfolioPageClient({ dict, lang }: Props) {
-  const dispatch = useAppDispatch()
-  const activeFilter = useAppSelector((state) => state.portfolio.activeFilter)
+  const [activeFilter, setActiveFilter] = useState('all')
 
-  const filteredProjects = activeFilter === 'all'
-    ? projects
-    : projects.filter((p) => p.category === activeFilter)
+  const filteredProjects = useMemo(() => {
+    return activeFilter === 'all'
+      ? projects
+      : projects.filter((p) => p.category === activeFilter)
+  }, [activeFilter])
 
   return (
     <Box sx={{ pt: 14 }}>
@@ -54,7 +54,7 @@ export default function PortfolioPageClient({ dict, lang }: Props) {
           {filterKeys.map((key) => (
             <Button
               key={key}
-              onClick={() => dispatch(setActiveFilter(key))}
+              onClick={() => setActiveFilter(key)}
               sx={{
                 borderRadius: '10px',
                 px: 3,
@@ -77,17 +77,15 @@ export default function PortfolioPageClient({ dict, lang }: Props) {
           ))}
         </Box>
 
-        {/* Projects Grid */}
         <Grid container spacing={3}>
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
             {filteredProjects.map((project, index) => (
               <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={project.id}>
                 <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
                   <Box className="glass card-hover" sx={{
                     borderRadius: '20px', overflow: 'hidden', cursor: 'pointer',

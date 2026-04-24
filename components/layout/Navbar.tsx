@@ -51,8 +51,15 @@ export default function Navbar({ dict, lang }: NavbarProps) {
   }, [])
 
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50)
+          ticking = false
+        })
+        ticking = true
+      }
     }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })

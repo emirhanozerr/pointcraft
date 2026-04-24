@@ -16,8 +16,15 @@ export function useTilt3D({ maxDeg = 6 }: UseTilt3DOptions = {}) {
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [`${maxDeg}deg`, `-${maxDeg}deg`])
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [`-${maxDeg}deg`, `${maxDeg}deg`])
 
+  const rectRef = React.useRef<DOMRect | null>(null)
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    rectRef.current = e.currentTarget.getBoundingClientRect()
+  }
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
+    if (!rectRef.current) return
+    const rect = rectRef.current
     const xPct = (e.clientX - rect.left) / rect.width - 0.5
     const yPct = (e.clientY - rect.top) / rect.height - 0.5
     x.set(xPct)
@@ -27,6 +34,7 @@ export function useTilt3D({ maxDeg = 6 }: UseTilt3DOptions = {}) {
   const handleMouseLeave = () => {
     x.set(0)
     y.set(0)
+    rectRef.current = null
   }
 
   const tiltStyle: MotionStyle = {
@@ -36,5 +44,5 @@ export function useTilt3D({ maxDeg = 6 }: UseTilt3DOptions = {}) {
     willChange: 'transform',
   }
 
-  return { tiltStyle, handleMouseMove, handleMouseLeave }
+  return { tiltStyle, handleMouseEnter, handleMouseMove, handleMouseLeave }
 }

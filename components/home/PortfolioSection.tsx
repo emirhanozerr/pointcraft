@@ -17,7 +17,7 @@ interface PortfolioSectionProps {
 }
 
 function ProjectCard({ project, index, dict, lang }: { project: Project, index: number, dict: any, lang: Locale }) {
-  const { tiltStyle, handleMouseMove, handleMouseLeave } = useTilt3D()
+  const { tiltStyle, handleMouseEnter, handleMouseMove, handleMouseLeave } = useTilt3D()
   const accentColor = project.glowColor.replace('0.3', '1').replace('rgba', 'rgb')
 
   return (
@@ -27,6 +27,7 @@ function ProjectCard({ project, index, dict, lang }: { project: Project, index: 
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
       style={{ ...tiltStyle, height: '100%' }}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >

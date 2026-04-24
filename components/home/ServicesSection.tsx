@@ -22,7 +22,7 @@ interface ServiceCardProps {
 }
 
 function ServiceCard({ service, content, index }: ServiceCardProps) {
-  const { tiltStyle, handleMouseMove, handleMouseLeave } = useTilt3D({ maxDeg: 10 })
+  const { tiltStyle, handleMouseEnter, handleMouseMove, handleMouseLeave } = useTilt3D({ maxDeg: 10 })
   const Icon = service.icon
   const accentColor = service.glowColor.replace('0.3', '1').replace('rgba', 'rgb')
 
@@ -33,6 +33,7 @@ function ServiceCard({ service, content, index }: ServiceCardProps) {
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
       style={{ ...tiltStyle, height: '100%' }}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Box, Container, Typography, Chip, Grid, Button } from '@mui/material'
 import { motion } from 'framer-motion'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
@@ -25,9 +25,11 @@ const categoryKeys = ['all', 'socialMedia', 'seo', 'technology', 'marketing']
 export default function BlogPageClient({ dict, lang }: Props) {
   const [activeCategory, setActiveCategory] = useState('all')
 
-  const filtered = activeCategory === 'all'
-    ? blogPosts
-    : blogPosts.filter((p) => p.category === activeCategory)
+  const filtered = useMemo(() => {
+    return activeCategory === 'all'
+      ? blogPosts
+      : blogPosts.filter((p) => p.category === activeCategory)
+  }, [activeCategory])
 
   return (
     <Box sx={{ pt: 14 }}>

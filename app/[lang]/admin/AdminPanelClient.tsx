@@ -2,14 +2,19 @@
 
 import { useState, useEffect } from 'react'
 import {
-  Box, Typography, Container, Card, CardContent, CircularProgress, 
+  Box, Typography, Container, Card, CircularProgress, 
   Chip, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
-  Tabs, Tab
+  Tabs, Tab, Alert
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import api from '@/lib/axios'
+import CoreInput from '@/components/ui/CoreInput'
+import Loading from '@/components/ui/Loading'
 
 interface Submission {
   id: string
@@ -23,60 +28,19 @@ interface Submission {
   createdAt: string
 }
 
+interface Subscriber {
+  id: string
+  email: string
+  createdAt: string
+}
+
 export default function AdminPanelClient() {
-  const [submissions, setSubmissions] = useState<Submission[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const queryClient = useQueryClient()
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null)
-
   const [tabIndex, setTabIndex] = useState(0)
-  const [subscribers, setSubscribers] = useState<{ id: string, email: string, createdAt: string }[]>([])
-
-  // Basic authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [password, setPassword] = useState('')
-
-  const fetchSubmissions = async () => {
-    try {
-      const res = await fetch('/api/admin/submissions')
-      if (!res.ok) throw new Error('API hatası')
-      const data = await res.json()
-      setSubmissions(data.submissions)
-    } catch (err: any) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const fetchSubscribers = async () => {
-    try {
-      const res = await fetch('/api/admin/subscribers')
-      if (!res.ok) throw new Error('API hatası')
-      const data = await res.json()
-      setSubscribers(data)
-    } catch (err: any) {
-      console.error(err)
-    }
-  }
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchSubmissions()
-      fetchSubscribers()
-    }
-  }, [isAuthenticated])
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Very simple pseudo-login for demonstration purposes
-    if (password === 'admin123') {
-      setIsAuthenticated(true)
-      localStorage.setItem('admin_auth', 'true')
-    } else {
-      alert('Hatalı şifre')
-    }
-  }
+  
+  const { register, handleSubmit } = useForm({ defaultValues: { password: '' } })
 
   useEffect(() => {
     if (localStorage.getItem('admin_auth') === 'true') {
@@ -84,32 +48,55 @@ export default function AdminPanelClient() {
     }
   }, [])
 
+  const { data: submissionsData, isLoading: submissionsLoading, error: submissionsError } = useQuery<{ submissions: Submission[] }>({
+    queryKey: ['submissions'],
+    queryFn: () => api.get('/admin/submissions').then(res => res.data),
+    enabled: isAuthenticated,
+  })
+
+  const { data: subscribersData, isLoading: subscribersLoading } = useQuery<Subscriber[]>({
+    queryKey: ['subscribers'],
+    queryFn: () => api.get('/admin/subscribers').then(res => res.data),
+    enabled: isAuthenticated,
+  })
+
+  const updateSubmissionMutation = useMutation({
+    mutationFn: ({ id, read }: { id: string, read: boolean }) => 
+      api.patch('/admin/submissions', { id, read }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['submissions'] })
+  })
+
+  const deleteSubmissionMutation = useMutation({
+    mutationFn: (id: string) => api.delete(`/admin/submissions?id=${id}`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['submissions'] })
+  })
+
+  const deleteSubscriberMutation = useMutation({
+    mutationFn: (id: string) => api.delete(`/admin/subscribers?id=${id}`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['subscribers'] })
+  })
+
+  const handleLogin = (data: { password: string }) => {
+    if (data.password === 'admin123') {
+      setIsAuthenticated(true)
+      localStorage.setItem('admin_auth', 'true')
+    } else {
+      alert('Hatalı şifre')
+    }
+  }
+
   const handleLogout = () => {
     setIsAuthenticated(false)
     localStorage.removeItem('admin_auth')
   }
 
-  const markAsRead = async (id: string, currentStatus: boolean) => {
-    try {
-      await fetch('/api/admin/submissions', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, read: !currentStatus })
-      })
-      fetchSubmissions()
-    } catch (err) {
-      console.error(err)
-    }
+  const markAsRead = (id: string, currentStatus: boolean) => {
+    updateSubmissionMutation.mutate({ id, read: !currentStatus })
   }
 
-  const deleteSubmission = async (id: string) => {
-    if (!confirm('Silmek istediğinize emin misiniz?')) return
-    
-    try {
-      await fetch(`/api/admin/submissions?id=${id}`, { method: 'DELETE' })
-      fetchSubmissions()
-    } catch (err) {
-      console.error(err)
+  const deleteSubmission = (id: string) => {
+    if (confirm('Silmek istediğinize emin misiniz?')) {
+      deleteSubmissionMutation.mutate(id)
     }
   }
 
@@ -118,14 +105,9 @@ export default function AdminPanelClient() {
     if (!sub.read) markAsRead(sub.id, false)
   }
 
-  const deleteSubscriber = async (id: string) => {
-    if (!confirm('Bu aboneyi silmek istediğinize emin misiniz?')) return
-    
-    try {
-      await fetch(`/api/admin/subscribers?id=${id}`, { method: 'DELETE' })
-      fetchSubscribers()
-    } catch (err) {
-      console.error(err)
+  const deleteSubscriber = (id: string) => {
+    if (confirm('Bu aboneyi silmek istediğinize emin misiniz?')) {
+      deleteSubscriberMutation.mutate(id)
     }
   }
 
@@ -134,25 +116,27 @@ export default function AdminPanelClient() {
       <Container maxWidth="sm" sx={{ mt: 10 }}>
         <Card sx={{ p: 4, borderRadius: 3, textAlign: 'center' }}>
           <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold' }}>Admin Paneli Girişi</Typography>
-          <form onSubmit={handleLogin}>
-            <input 
-              type="password" 
-              placeholder="Şifre (admin123)" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{ width: '100%', padding: '12px', marginBottom: '20px', borderRadius: '8px', border: '1px solid #ccc' }}
+          <Box component="form" onSubmit={handleSubmit(handleLogin)} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <CoreInput
+              type="password"
+              label="Şifre"
+              placeholder="admin123"
+              registration={register('password', { required: true })}
             />
             <Button variant="contained" type="submit" fullWidth sx={{ background: '#F6BC0D', color: '#000', fontWeight: 'bold' }}>
               Giriş Yap
             </Button>
-          </form>
+          </Box>
         </Card>
       </Container>
     )
   }
 
+  const submissions = submissionsData?.submissions || []
+  const subscribers = subscribersData || []
+
   return (
-    <Container maxWidth="xl" sx={{ mt: 4 }}>
+    <Container maxWidth="xl" sx={{ mt: 4, mb: 10 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h4" sx={{ fontWeight: 800, color: '#1A1A1A' }}>
           Admin Paneli
@@ -167,97 +151,97 @@ export default function AdminPanelClient() {
         </Tabs>
       </Box>
 
-      {tabIndex === 0 && (
-      <Card sx={{ borderRadius: 3, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-        {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', p: 10 }}><CircularProgress sx={{ color: '#F6BC0D' }} /></Box>
-        ) : error ? (
-          <Typography sx={{ color: 'red', p: 4, textAlign: 'center' }}>Hata: {error}</Typography>
-        ) : submissions.length === 0 ? (
-          <Typography sx={{ p: 4, textAlign: 'center', color: 'gray' }}>Henüz hiç mesajınız yok.</Typography>
-        ) : (
-          <TableContainer component={Paper} elevation={0}>
-            <Table>
-              <TableHead sx={{ background: '#f8f9fa' }}>
-                <TableRow>
-                  <TableCell><strong>Durum</strong></TableCell>
-                  <TableCell><strong>Tarih</strong></TableCell>
-                  <TableCell><strong>Ad Soyad</strong></TableCell>
-                  <TableCell><strong>Konu/Hizmet</strong></TableCell>
-                  <TableCell><strong>E-posta</strong></TableCell>
-                  <TableCell align="right"><strong>İşlem</strong></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {submissions.map((sub) => (
-                  <TableRow key={sub.id} sx={{ background: sub.read ? 'transparent' : 'rgba(246, 188, 13, 0.05)' }}>
-                    <TableCell>
-                      <Chip 
-                        size="small" 
-                        label={sub.read ? "Okundu" : "Yeni"} 
-                        sx={{ 
-                          fontWeight: 'bold',
-                          background: sub.read ? '#e0e0e0' : '#F6BC0D',
-                          color: sub.read ? '#666' : '#000'
-                        }} 
-                      />
-                    </TableCell>
-                    <TableCell>{new Date(sub.createdAt).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</TableCell>
-                    <TableCell sx={{ fontWeight: sub.read ? 'normal' : 'bold' }}>{sub.name}</TableCell>
-                    <TableCell>{sub.service || '-'}</TableCell>
-                    <TableCell>{sub.email}</TableCell>
-                    <TableCell align="right">
-                      <IconButton onClick={() => markAsRead(sub.id, sub.read)} color={sub.read ? 'default' : 'success'} title="Okunma Durumunu Değiştir">
-                        <CheckCircleIcon />
-                      </IconButton>
-                      <IconButton onClick={() => openDetails(sub)} color="primary" title="Mesajı Görüntüle">
-                        <VisibilityIcon />
-                      </IconButton>
-                      <IconButton onClick={() => deleteSubmission(sub.id)} color="error" title="Sil">
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </Card>
-      )}
-
-      {tabIndex === 1 && (
-        <Card sx={{ borderRadius: 3, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-          {subscribers.length === 0 ? (
-            <Typography sx={{ p: 4, textAlign: 'center', color: 'gray' }}>Henüz abone olan kimse yok.</Typography>
-          ) : (
-            <TableContainer component={Paper} elevation={0}>
-              <Table>
-                <TableHead sx={{ background: '#f8f9fa' }}>
-                  <TableRow>
-                    <TableCell><strong>E-posta</strong></TableCell>
-                    <TableCell><strong>Kayıt Tarihi</strong></TableCell>
-                    <TableCell align="right"><strong>İşlem</strong></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {subscribers.map((sub) => (
-                    <TableRow key={sub.id}>
-                      <TableCell sx={{ fontWeight: 'bold' }}>{sub.email}</TableCell>
-                      <TableCell>{new Date(sub.createdAt).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</TableCell>
-                      <TableCell align="right">
-                        <IconButton onClick={() => deleteSubscriber(sub.id)} color="error" title="Sil">
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
+      <Loading isLoading={submissionsLoading || subscribersLoading}>
+        {tabIndex === 0 && (
+          <Card sx={{ borderRadius: 3, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+            {submissionsError ? (
+              <Alert severity="error" sx={{ m: 2 }}>Hata: {(submissionsError as Error).message}</Alert>
+            ) : submissions.length === 0 ? (
+              <Typography sx={{ p: 4, textAlign: 'center', color: 'gray' }}>Henüz hiç mesajınız yok.</Typography>
+            ) : (
+              <TableContainer component={Paper} elevation={0}>
+                <Table>
+                  <TableHead sx={{ background: '#f8f9fa' }}>
+                    <TableRow>
+                      <TableCell><strong>Durum</strong></TableCell>
+                      <TableCell><strong>Tarih</strong></TableCell>
+                      <TableCell><strong>Ad Soyad</strong></TableCell>
+                      <TableCell><strong>Konu/Hizmet</strong></TableCell>
+                      <TableCell><strong>E-posta</strong></TableCell>
+                      <TableCell align="right"><strong>İşlem</strong></TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
-        </Card>
-      )}
+                  </TableHead>
+                  <TableBody>
+                    {submissions.map((sub: Submission) => (
+                      <TableRow key={sub.id} sx={{ background: sub.read ? 'transparent' : 'rgba(246, 188, 13, 0.05)' }}>
+                        <TableCell>
+                          <Chip 
+                            size="small" 
+                            label={sub.read ? "Okundu" : "Yeni"} 
+                            sx={{ 
+                              fontWeight: 'bold',
+                              background: sub.read ? '#e0e0e0' : '#F6BC0D',
+                              color: sub.read ? '#666' : '#000'
+                            }} 
+                          />
+                        </TableCell>
+                        <TableCell>{new Date(sub.createdAt).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</TableCell>
+                        <TableCell sx={{ fontWeight: sub.read ? 'normal' : 'bold' }}>{sub.name}</TableCell>
+                        <TableCell>{sub.service || '-'}</TableCell>
+                        <TableCell>{sub.email}</TableCell>
+                        <TableCell align="right">
+                          <IconButton onClick={() => markAsRead(sub.id, sub.read)} color={sub.read ? 'default' : 'success'} title="Okunma Durumunu Değiştir">
+                            <CheckCircleIcon />
+                          </IconButton>
+                          <IconButton onClick={() => openDetails(sub)} color="primary" title="Mesajı Görüntüle">
+                            <VisibilityIcon />
+                          </IconButton>
+                          <IconButton onClick={() => deleteSubmission(sub.id)} color="error" title="Sil">
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+          </Card>
+        )}
+
+        {tabIndex === 1 && (
+          <Card sx={{ borderRadius: 3, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+            {subscribers.length === 0 ? (
+              <Typography sx={{ p: 4, textAlign: 'center', color: 'gray' }}>Henüz abone olan kimse yok.</Typography>
+            ) : (
+              <TableContainer component={Paper} elevation={0}>
+                <Table>
+                  <TableHead sx={{ background: '#f8f9fa' }}>
+                    <TableRow>
+                      <TableCell><strong>E-posta</strong></TableCell>
+                      <TableCell><strong>Kayıt Tarihi</strong></TableCell>
+                      <TableCell align="right"><strong>İşlem</strong></TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {subscribers.map((sub: Subscriber) => (
+                      <TableRow key={sub.id}>
+                        <TableCell sx={{ fontWeight: 'bold' }}>{sub.email}</TableCell>
+                        <TableCell>{new Date(sub.createdAt).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</TableCell>
+                        <TableCell align="right">
+                          <IconButton onClick={() => deleteSubscriber(sub.id)} color="error" title="Sil">
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+          </Card>
+        )}
+      </Loading>
 
       <Dialog open={!!selectedSubmission} onClose={() => setSelectedSubmission(null)} maxWidth="sm" fullWidth>
         {selectedSubmission && (

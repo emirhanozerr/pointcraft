@@ -3,7 +3,7 @@ import { Noto_Serif } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import '../globals.css'
 import ThemeProvider from '@/components/providers/ThemeProvider'
-import StoreProvider from '@/components/providers/StoreProvider'
+import QueryProvider from '@/components/providers/QueryProvider'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import WhatsAppButton from '@/components/layout/WhatsAppButton'
@@ -93,14 +93,14 @@ export default async function RootLayout({
   return (
     <html lang={lang} className={`${notoSerif.variable}`}>
       <body suppressHydrationWarning style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <StoreProvider>
+        <QueryProvider>
           <ThemeProvider>
             <Navbar dict={dict} lang={lang as Locale} />
             <main style={{ flex: 1 }}>{children}</main>
             <Footer dict={dict} lang={lang as Locale} />
             <WhatsAppButton />
           </ThemeProvider>
-        </StoreProvider>
+        </QueryProvider>
       </body>
     </html>
   )
